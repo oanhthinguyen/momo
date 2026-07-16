@@ -1,4 +1,4 @@
-import { Baby, Search, Globe, ChevronDown } from 'lucide-react';
+import { Baby, Search, Globe, ChevronDown, Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
@@ -9,6 +9,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   
   const location = useLocation();
@@ -28,6 +29,7 @@ export default function Navbar() {
   useEffect(() => {
     setIsLangDropdownOpen(false);
     setIsSearchOpen(false);
+    setIsMobileMenuOpen(false);
   }, [location]);
 
   // Click outside để đóng dropdown ngôn ngữ
@@ -115,8 +117,26 @@ export default function Navbar() {
             </form>
           </div>
           
+          <button 
+            className="icon-btn mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-nav-overlay glass animate-fade-in">
+          <nav className="mobile-nav-links">
+            <Link to="/diapers" className={`nav-link ${location.pathname === '/diapers' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_diapers')}</Link>
+            <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_milk')}</Link>
+            <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_toys')}</Link>
+            <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_parenting')}</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
