@@ -1,53 +1,15 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
-// Tái sử dụng CSS của trang Diapers vì bố cục (filter bar, category grid) hoàn toàn giống nhau
+import { useMockData } from '../data/useMockData';
 import './Diapers.css';
 
 type FilterType = 'all' | 'stage1' | 'stage2' | 'stage3';
 
 export default function Milk() {
   const { t } = useLanguage();
+  const { milkList } = useMockData();
   const [filter, setFilter] = useState<FilterType>('all');
-
-  const milkList = [
-    {
-      id: 5,
-      type: 'stage1',
-      category: t('filter_stage1'),
-      title: t('mk_5_title'),
-      rating: 5,
-      summary: t('mk_5_sum'),
-      imageColor: '#fca5a5'
-    },
-    {
-      id: 6,
-      type: 'stage2',
-      category: t('filter_stage2'),
-      title: t('mk_6_title'),
-      rating: 5,
-      summary: t('mk_6_sum'),
-      imageColor: '#93c5fd'
-    },
-    {
-      id: 7,
-      type: 'stage1',
-      category: t('filter_stage1'),
-      title: t('mk_7_title'),
-      rating: 4,
-      summary: t('mk_7_sum'),
-      imageColor: '#86efac'
-    },
-    {
-      id: 8,
-      type: 'stage3',
-      category: t('filter_stage3'),
-      title: t('mk_8_title'),
-      rating: 5,
-      summary: t('mk_8_sum'),
-      imageColor: '#d8b4fe'
-    }
-  ];
 
   const filteredList = filter === 'all' ? milkList : milkList.filter(m => m.type === filter);
 

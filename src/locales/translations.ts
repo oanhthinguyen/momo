@@ -24,6 +24,9 @@ export const translations = {
     toy_desc: 'Gợi ý đồ chơi thông minh giúp bé phát triển trí tuệ và kỹ năng.',
     updating: 'Đang cập nhật thêm bài viết...',
     where_to_buy: 'Nơi mua chính hãng (Giá tốt nhất)',
+    search_placeholder: 'Tìm kiếm review (vd: Merries, Sữa)...',
+    search_results_for: 'Kết quả tìm kiếm cho',
+    no_results: 'Rất tiếc, không tìm thấy bài viết nào phù hợp với từ khóa này.',
     
     // Diaper Filters & Content
     filter_all: 'Tất cả',
@@ -92,6 +95,9 @@ export const translations = {
     toy_desc: 'Recommendations on smart toys to help develop cognitive and motor skills.',
     updating: 'Updating more articles...',
     where_to_buy: 'Where to buy (Best deals)',
+    search_placeholder: 'Search reviews (e.g., Merries, Milk)...',
+    search_results_for: 'Search results for',
+    no_results: 'Sorry, we couldn\'t find any articles matching this keyword.',
 
     // Diaper Filters & Content
     filter_all: 'All',

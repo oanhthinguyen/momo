@@ -1,43 +1,64 @@
 import { Baby, Menu, Search, Globe, ChevronDown } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import type { Language } from '../locales/translations';
 import './Navbar.css';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   const location = useLocation();
+  const navigate = useNavigate();
   const { language, changeLanguage, t } = useLanguage();
+  const langDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Đóng menu/dropdown khi chuyển trang
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsLangDropdownOpen(false);
+    setIsSearchOpen(false);
+  }, [location]);
+
+  // Click outside để đóng dropdown ngôn ngữ
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownOpen(false);
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
+        setIsLangDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLangSelect = (lang: Language) => {
+  const handleLanguageChange = (lang: Language) => {
     changeLanguage(lang);
-    setDropdownOpen(false);
+    setIsLangDropdownOpen(false);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
   };
 
   return (
-    <header className={`navbar ${scrolled ? 'glass scrolled' : ''}`}>
+    <header className={`navbar ${isScrolled ? 'glass scrolled' : ''}`}>
       <div className="container navbar-container">
         <Link to="/" className="logo">
           <Baby size={32} color="var(--primary)" />
@@ -51,38 +72,53 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions">
-          {/* Language Dropdown */}
-          <div className="lang-dropdown-container" ref={dropdownRef}>
+          <div className="lang-dropdown-container" ref={langDropdownRef}>
             <button 
               className="icon-btn lang-btn" 
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              title={language === 'vi' ? 'Chọn ngôn ngữ' : 'Select language'}
+              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
             >
               <Globe size={20} />
-              <span className="lang-text">{language.toUpperCase()}</span>
-              <ChevronDown size={14} className={`dropdown-icon ${dropdownOpen ? 'open' : ''}`} />
+              <span className="lang-text">{language === 'vi' ? 'VI' : 'EN'}</span>
+              <ChevronDown size={16} />
             </button>
             
-            {dropdownOpen && (
-              <div className="lang-dropdown-menu glass animate-fade-in">
+            {isLangDropdownOpen && (
+              <div className="lang-dropdown-menu">
                 <button 
-                  className={`dropdown-item ${language === 'vi' ? 'active' : ''}`}
-                  onClick={() => handleLangSelect('vi')}
+                  className={`lang-option ${language === 'vi' ? 'active' : ''}`}
+                  onClick={() => handleLanguageChange('vi')}
                 >
                   🇻🇳 Tiếng Việt
                 </button>
                 <button 
-                  className={`dropdown-item ${language === 'en' ? 'active' : ''}`}
-                  onClick={() => handleLangSelect('en')}
+                  className={`lang-option ${language === 'en' ? 'active' : ''}`}
+                  onClick={() => handleLanguageChange('en')}
                 >
                   🇬🇧 English
                 </button>
               </div>
             )}
           </div>
+
+          <div className="search-container">
+            <form onSubmit={handleSearchSubmit} className={`search-form ${isSearchOpen ? 'open' : ''}`}>
+              <input 
+                type="text" 
+                placeholder={t('search_placeholder')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+                onBlur={() => !searchQuery && setIsSearchOpen(false)}
+              />
+              <button type="button" className="icon-btn search-toggle-btn" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+                <Search size={20} />
+              </button>
+            </form>
+          </div>
           
-          <button className="icon-btn"><Search size={20} /></button>
-          <button className="icon-btn"><Menu size={24} className="mobile-menu" /></button>
+          <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <Menu size={24} />
+          </button>
         </div>
       </div>
     </header>

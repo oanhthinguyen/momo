@@ -1,52 +1,15 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
-import './Diapers.css'; // Tái sử dụng CSS từ Diapers
+import { useMockData } from '../data/useMockData';
+import './Diapers.css';
 
 type FilterType = 'all' | 'newborn' | 'motor' | 'puzzle';
 
 export default function Toys() {
   const { t } = useLanguage();
+  const { toysList } = useMockData();
   const [filter, setFilter] = useState<FilterType>('all');
-
-  const toysList = [
-    {
-      id: 9,
-      type: 'newborn',
-      category: t('filter_newborn'),
-      title: t('ty_9_title'),
-      rating: 5,
-      summary: t('ty_9_sum'),
-      imageColor: '#fcd34d'
-    },
-    {
-      id: 10,
-      type: 'motor',
-      category: t('filter_motor'),
-      title: t('ty_10_title'),
-      rating: 4,
-      summary: t('ty_10_sum'),
-      imageColor: '#34d399'
-    },
-    {
-      id: 11,
-      type: 'puzzle',
-      category: t('filter_puzzle'),
-      title: t('ty_11_title'),
-      rating: 5,
-      summary: t('ty_11_sum'),
-      imageColor: '#60a5fa'
-    },
-    {
-      id: 12,
-      type: 'puzzle',
-      category: t('filter_puzzle'),
-      title: t('ty_12_title'),
-      rating: 5,
-      summary: t('ty_12_sum'),
-      imageColor: '#f472b6'
-    }
-  ];
 
   const filteredList = filter === 'all' ? toysList : toysList.filter(t => t.type === filter);
 

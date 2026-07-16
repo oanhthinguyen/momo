@@ -1,39 +1,21 @@
-import ReviewCard from './ReviewCard';
 import { useLanguage } from '../context/LanguageContext';
+import ReviewCard from './ReviewCard';
+import { useMockData } from '../data/useMockData';
 import './Categories.css';
 
 export default function Categories() {
   const { t } = useLanguage();
-
-  const reviews = [
-    {
-      id: 1,
-      category: t('nav_diapers'),
-      title: 'Đánh giá bỉm Merries nội địa Nhật',
-      rating: 5,
-      summary: 'Bỉm mềm mại, thấm hút tốt, không gây hăm tã cho bé sơ sinh. Đáng đồng tiền bát gạo.',
-      imageColor: 'var(--primary-light)'
-    },
-    {
-      id: 2,
-      category: t('nav_milk'),
-      title: 'Sữa Meiji số 0 có tốt không?',
-      rating: 4,
-      summary: 'Sữa nhạt thanh giống sữa mẹ, bé dễ hấp thu, tiêu hóa tốt, không bị táo bón.',
-      imageColor: 'var(--secondary-light)'
-    },
-    {
-      id: 3,
-      category: t('nav_toys'),
-      title: 'Xếp hình Lego Duplo cho bé 2 tuổi',
-      rating: 5,
-      summary: 'Giúp bé phát triển tư duy sáng tạo, khối to an toàn không sợ bé nuốt phải.',
-      imageColor: 'var(--accent-light)'
-    }
-  ];
+  const { allProducts } = useMockData();
+  
+  // Lấy 3 sản phẩm đầu tiên làm nổi bật
+  const featuredReviews = [
+    allProducts.find(p => p.id === 1),
+    allProducts.find(p => p.id === 5),
+    allProducts.find(p => p.id === 9)
+  ].filter(Boolean);
 
   return (
-    <section className="categories" id="reviews">
+    <section className="categories-section">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">{t('cat_title')}</h2>
@@ -41,8 +23,16 @@ export default function Categories() {
         </div>
         
         <div className="category-grid">
-          {reviews.map((review) => (
-            <ReviewCard key={review.id} {...review} />
+          {featuredReviews.map((review) => (
+            <ReviewCard 
+              key={review!.id} 
+              id={review!.id}
+              category={review!.category}
+              title={review!.title}
+              rating={review!.rating}
+              summary={review!.summary}
+              imageColor={review!.imageColor}
+            />
           ))}
         </div>
       </div>
