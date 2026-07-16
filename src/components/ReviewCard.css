@@ -54,9 +54,36 @@
 .card-summary {
   font-size: 0.95rem;
   color: var(--text-light);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   flex-grow: 1;
 }
+
+.card-affiliate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.mini-aff-btn {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.mini-aff-btn:hover {
+  opacity: 0.85;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.mini-aff-btn.shopee { background: #ee4d2d; }
+.mini-aff-btn.tiktok { background: #000000; }
+.mini-aff-btn.lazada { background: linear-gradient(135deg, #020468, #f0145a); }
 
 .read-more {
   background: transparent;

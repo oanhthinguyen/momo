@@ -24,10 +24,17 @@ export default function ReviewCard({ id, category, title, rating, summary, image
         <h3 className="card-title">{title}</h3>
         <div className="card-rating">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} size={16} fill={i < rating ? "var(--accent)" : "transparent"} color="var(--accent)" />
+            <Star key={i} size={14} fill={i < rating ? "var(--accent)" : "transparent"} color="var(--accent)" />
           ))}
         </div>
         <p className="card-summary">{summary}</p>
+
+        <div className="card-affiliate">
+          <a href="https://shopee.vn" target="_blank" rel="noopener noreferrer" className="mini-aff-btn shopee">Shopee</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="mini-aff-btn tiktok">TikTok</a>
+          <a href="https://lazada.vn" target="_blank" rel="noopener noreferrer" className="mini-aff-btn lazada">Lazada</a>
+        </div>
+
         <Link to={`/review/${id}`} className="read-more">{t('read_more')}</Link>
       </div>
     </div>
