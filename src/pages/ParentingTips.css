@@ -184,9 +184,17 @@
   font-size: 0.9rem;
 }
 
-.clinic-address p {
+.clinic-address a {
   margin: 0;
   line-height: 1.4;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.clinic-address a:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

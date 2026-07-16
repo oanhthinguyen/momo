@@ -80,7 +80,13 @@ export default function ParentingTips() {
                 <h4>{t(`pt_clinic_${num}_name` as any)}</h4>
                 <div className="clinic-address">
                   <MapPin size={16} />
-                  <p>{t(`pt_clinic_${num}_desc` as any)}</p>
+                  <a 
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t(`pt_clinic_${num}_name` as any) + ' ' + t(`pt_clinic_${num}_desc` as any))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t(`pt_clinic_${num}_desc` as any)}
+                  </a>
                 </div>
               </div>
             </div>
