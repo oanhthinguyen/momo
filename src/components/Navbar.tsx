@@ -41,7 +41,7 @@ export default function Navbar() {
       <div className="container navbar-container">
         <Link to="/" className="logo">
           <Baby size={32} color="var(--primary)" />
-          <span>Momo<span className="text-primary">Review</span></span>
+          <span>Memo<span className="text-primary">Review</span></span>
         </Link>
         
         <nav className="nav-links">

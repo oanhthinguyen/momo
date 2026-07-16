@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="footer-brand">
           <div className="logo footer-logo">
             <Baby size={32} color="var(--primary)" />
-            <span>Momo<span className="text-primary">Review</span></span>
+            <span>Memo<span className="text-primary">Review</span></span>
           </div>
           <p className="footer-description">
             {t('footer_desc')}
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Momo Review. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Memo Review. All rights reserved.</p>
       </div>
     </footer>
   );
