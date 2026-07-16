@@ -15,7 +15,7 @@ export default function Categories() {
   ].filter(Boolean);
 
   return (
-    <section className="categories-section">
+    <section id="categories-section" className="categories-section">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">{t('cat_title')}</h2>

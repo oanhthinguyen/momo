@@ -8,6 +8,7 @@ import Milk from './pages/Milk';
 import Toys from './pages/Toys';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
+import WriteReview from './pages/WriteReview';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/milk" element={<Milk />} />
             <Route path="/toys" element={<Toys />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/write-review" element={<WriteReview />} />
             <Route path="/review/:id" element={<ReviewDetail />} />
           </Routes>
 

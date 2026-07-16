@@ -28,6 +28,22 @@ export const translations = {
     search_results_for: 'Kết quả tìm kiếm cho',
     no_results: 'Rất tiếc, không tìm thấy bài viết nào phù hợp với từ khóa này.',
     
+    // Write Review
+    wr_title: 'Viết Đánh Giá Của Bạn',
+    wr_subtitle: 'Chia sẻ trải nghiệm thực tế của bạn để giúp các mẹ bỉm sữa khác có thêm thông tin hữu ích nhé.',
+    wr_prod_name: 'Tên sản phẩm',
+    wr_prod_ph: 'VD: Bỉm Merries size M...',
+    wr_category: 'Chuyên mục',
+    wr_rating: 'Chấm điểm',
+    wr_pros: 'Ưu điểm',
+    wr_pros_ph: 'Điểm cộng của sản phẩm là gì?',
+    wr_cons: 'Nhược điểm',
+    wr_cons_ph: 'Điểm trừ cần lưu ý?',
+    wr_summary: 'Tóm tắt trải nghiệm',
+    wr_summary_ph: 'Nhận xét chung của bạn...',
+    wr_submit: 'Gửi Đánh Giá',
+    wr_success: 'Cảm ơn bạn! Đánh giá đã được ghi nhận và đang chờ duyệt.',
+    
     // Diaper Filters & Content
     filter_all: 'Tất cả',
     filter_tape: 'Bỉm dán',
@@ -98,6 +114,22 @@ export const translations = {
     search_placeholder: 'Search reviews (e.g., Merries, Milk)...',
     search_results_for: 'Search results for',
     no_results: 'Sorry, we couldn\'t find any articles matching this keyword.',
+
+    // Write Review
+    wr_title: 'Write Your Review',
+    wr_subtitle: 'Share your real experiences to help other moms make better choices.',
+    wr_prod_name: 'Product Name',
+    wr_prod_ph: 'E.g., Merries Diapers size M...',
+    wr_category: 'Category',
+    wr_rating: 'Rating',
+    wr_pros: 'Pros',
+    wr_pros_ph: 'What are the good points?',
+    wr_cons: 'Cons',
+    wr_cons_ph: 'What are the bad points?',
+    wr_summary: 'Overall Summary',
+    wr_summary_ph: 'Your general thoughts...',
+    wr_submit: 'Submit Review',
+    wr_success: 'Thank you! Your review has been submitted and is pending approval.',
 
     // Diaper Filters & Content
     filter_all: 'All',

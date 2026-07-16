@@ -1,9 +1,22 @@
 import { ArrowRight, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import './Hero.css';
 
 export default function Hero() {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleExploreClick = () => {
+    const el = document.getElementById('categories-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleReviewClick = () => {
+    navigate('/write-review');
+  };
 
   return (
     <section className="hero">
@@ -21,10 +34,10 @@ export default function Hero() {
             {t('hero_desc')}
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleExploreClick}>
               {t('btn_explore')} <ArrowRight size={20} />
             </button>
-            <button className="btn btn-outline">
+            <button className="btn btn-outline" onClick={handleReviewClick}>
               {t('btn_review')}
             </button>
           </div>
