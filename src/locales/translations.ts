@@ -98,6 +98,21 @@ export const translations = {
     pt_nutri_1_3_title: '1 - 3 Tuổi: Cùng Ăn Với Gia Đình',
     pt_nutri_1_3_desc: 'Chuyển sang ăn thô tốt, có thể ăn cơm nát và các món như người lớn (nhạt hơn). Cần cân bằng 4 nhóm chất: Bột đường, Đạm, Béo, Vitamin.',
     
+    // Recipes
+    pt_recipe_title: 'Góc Bếp Của Mẹ - Công Thức Ăn Dặm',
+    pt_recipe_1_name: 'Cháo yến mạch cá hồi bí đỏ',
+    pt_recipe_1_age: 'Dành cho bé 7+ tháng',
+    pt_recipe_1_ing: 'Nguyên liệu: 30g yến mạch, 30g cá hồi, 20g bí đỏ, 1 muỗng dầu olive nhỏ.',
+    pt_recipe_1_step: 'Cách làm: Ngâm yến mạch 15p. Hấp chín bí đỏ và cá hồi, dằm nhuyễn. Đun yến mạch với nước dùng, sôi thì cho bí đỏ và cá hồi vào đảo đều, tắt bếp thêm dầu olive.',
+    pt_recipe_2_name: 'Bánh pancake chuối yến mạch',
+    pt_recipe_2_age: 'Dành cho bé 8+ tháng (BLW)',
+    pt_recipe_2_ing: 'Nguyên liệu: 1 quả chuối chín, 3 muỗng canh yến mạch xay mịn, 1 lòng đỏ trứng gà.',
+    pt_recipe_2_step: 'Cách làm: Dằm nát chuối, trộn đều với yến mạch và lòng đỏ trứng. Áp chảo với lửa nhỏ (không cần dầu) đến khi vàng đều 2 mặt.',
+    pt_recipe_3_name: 'Súp gà ngô ngọt nấm hương',
+    pt_recipe_3_age: 'Dành cho bé 10+ tháng',
+    pt_recipe_3_ing: 'Nguyên liệu: Lườn gà (xé phay mịn), ngô ngọt (bào nhuyễn), nấm hương (băm thật nhỏ), bột năng.',
+    pt_recipe_3_step: 'Cách làm: Xào sơ nấm, đun nước dùng gà, cho ngô và thịt gà vào đun mềm. Hòa chút bột năng với nước lọc đổ vào khuấy đều cho súp sánh lại.',
+    
     pt_clinic_title: 'Địa chỉ khám bệnh uy tín',
     pt_clinic_1_name: 'Bệnh viện Nhi Đồng 1',
     pt_clinic_1_desc: '341 Sư Vạn Hạnh, P.10, Q.10, TP.HCM',
@@ -247,6 +262,21 @@ export const translations = {
     pt_nutri_1_3_title: '1 - 3 Years: Family Meals',
     pt_nutri_1_3_desc: 'Good chewing skills, can eat soft rice and family meals (less salt). Balance 4 groups: Carbs, Protein, Fats, Vitamins.',
     
+    // Recipes
+    pt_recipe_title: 'Mom\'s Kitchen - Weaning Recipes',
+    pt_recipe_1_name: 'Salmon & Pumpkin Oat Porridge',
+    pt_recipe_1_age: 'For 7+ months',
+    pt_recipe_1_ing: 'Ingredients: 30g oats, 30g salmon, 20g pumpkin, 1 tsp olive oil.',
+    pt_recipe_1_step: 'Steps: Soak oats for 15 mins. Steam and mash pumpkin and salmon. Cook oats with broth, add salmon and pumpkin, stir well. Add olive oil before serving.',
+    pt_recipe_2_name: 'Banana Oat Pancakes',
+    pt_recipe_2_age: 'For 8+ months (BLW)',
+    pt_recipe_2_ing: 'Ingredients: 1 ripe banana, 3 tbsp ground oats, 1 egg yolk.',
+    pt_recipe_2_step: 'Steps: Mash banana, mix with oats and egg yolk. Pan-fry on low heat (no oil needed) until golden brown on both sides.',
+    pt_recipe_3_name: 'Chicken, Corn & Mushroom Soup',
+    pt_recipe_3_age: 'For 10+ months',
+    pt_recipe_3_ing: 'Ingredients: Chicken breast (finely shredded), sweet corn (grated), shiitake mushroom (finely minced), tapioca starch.',
+    pt_recipe_3_step: 'Steps: Sauté mushrooms briefly. Boil chicken broth, add corn and chicken until soft. Mix a little tapioca starch with water, pour in and stir until the soup thickens.',
+
     pt_clinic_title: 'Reputable Clinics',
     pt_clinic_1_name: 'Children\'s Hospital 1',
     pt_clinic_1_desc: '341 Su Van Hanh, W.10, D.10, HCMC',

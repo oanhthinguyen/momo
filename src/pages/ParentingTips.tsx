@@ -1,5 +1,5 @@
 import { useLanguage } from '../context/LanguageContext';
-import { Hospital, MapPin, CheckCircle, AlertTriangle, Utensils } from 'lucide-react';
+import { Hospital, MapPin, CheckCircle, AlertTriangle, Utensils, ChefHat, Info, Sparkles } from 'lucide-react';
 import './ParentingTips.css';
 
 export default function ParentingTips() {
@@ -91,6 +91,40 @@ export default function ParentingTips() {
             <h3 style={{ color: '#059669' }}><Utensils size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }}/> {t('pt_nutri_1_3_title')}</h3>
             <p style={{ color: 'var(--text)', lineHeight: '1.7' }}>{t('pt_nutri_1_3_desc')}</p>
           </div>
+        </div>
+      </div>
+
+      {/* Recipes Section */}
+      <div className="pt-section">
+        <h2 className="section-heading">{t('pt_recipe_title')}</h2>
+        <div className="pt-recipe-grid">
+          {[1, 2, 3].map((num) => (
+            <div key={num} className="pt-recipe-card glass">
+              <div className="recipe-header">
+                <div className="recipe-icon-wrapper">
+                  <ChefHat size={28} />
+                </div>
+                <div>
+                  <h3 className="recipe-name">{t(`pt_recipe_${num}_name` as any)}</h3>
+                  <div className="recipe-age-badge">{t(`pt_recipe_${num}_age` as any)}</div>
+                </div>
+              </div>
+              <div className="recipe-content">
+                <div className="recipe-block ingredients">
+                  <div className="block-title">
+                    <Sparkles size={16} /> Nguyên liệu
+                  </div>
+                  <p>{t(`pt_recipe_${num}_ing` as any).replace('Nguyên liệu: ', '').replace('Ingredients: ', '')}</p>
+                </div>
+                <div className="recipe-block steps">
+                  <div className="block-title">
+                    <Info size={16} /> Cách làm
+                  </div>
+                  <p>{t(`pt_recipe_${num}_step` as any).replace('Cách làm: ', '').replace('Steps: ', '')}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
