@@ -1,6 +1,7 @@
 import { ArrowRight, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import babyImg from '../assets/baby.jpg';
 import './Hero.css';
 
 export default function Hero() {
@@ -45,6 +46,7 @@ export default function Hero() {
         <div className="hero-image-wrapper">
           <div className="blob-shape"></div>
           <div className="hero-image-placeholder glass">
+            <img src={babyImg} alt="Mẹ và Bé" className="hero-main-image" />
             <div className="floating-card card-1">
               <Star size={24} fill="#fbc668" color="#fbc668" />
               <div>
