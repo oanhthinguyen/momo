@@ -90,6 +90,14 @@ export const translations = {
     pt_age_1_3_prob: 'Khó khăn: Khủng hoảng tuổi lên 2, ăn vạ, kén ăn, tập bỏ bỉm.',
     pt_age_1_3_sol: 'Xử lý: Tôn trọng cảm xúc của con (kỷ luật bàn tay sắt bọc nhung), cho con sự lựa chọn, kiên nhẫn khi rèn thói quen mới.',
     
+    pt_nutrition_title: 'Dinh dưỡng & Ăn dặm theo độ tuổi',
+    pt_nutri_0_6_title: '0 - 6 Tháng: Sữa Mẹ Là Chân Ái',
+    pt_nutri_0_6_desc: 'Sữa mẹ (hoặc sữa công thức) là nguồn dinh dưỡng duy nhất. Không cần uống thêm nước. Dạ dày bé nhỏ nên cần chia thành nhiều cữ bú nhỏ.',
+    pt_nutri_6_12_title: '6 - 12 Tháng: Khám Phá Hương Vị',
+    pt_nutri_6_12_desc: 'Bắt đầu ăn dặm từ lỏng đến đặc (BLW, truyền thống, kiểu Nhật). Sữa vẫn là chính, đồ ăn dặm để làm quen kết cấu và giảm nguy cơ dị ứng.',
+    pt_nutri_1_3_title: '1 - 3 Tuổi: Cùng Ăn Với Gia Đình',
+    pt_nutri_1_3_desc: 'Chuyển sang ăn thô tốt, có thể ăn cơm nát và các món như người lớn (nhạt hơn). Cần cân bằng 4 nhóm chất: Bột đường, Đạm, Béo, Vitamin.',
+    
     pt_clinic_title: 'Địa chỉ khám bệnh uy tín',
     pt_clinic_1_name: 'Bệnh viện Nhi Đồng 1',
     pt_clinic_1_desc: '341 Sư Vạn Hạnh, P.10, Q.10, TP.HCM',
@@ -230,6 +238,14 @@ export const translations = {
     pt_age_1_3_title: '1 - 3 Years',
     pt_age_1_3_prob: 'Challenges: Terrible twos, tantrums, picky eating, potty training.',
     pt_age_1_3_sol: 'Solutions: Acknowledge feelings (gentle parenting), offer choices, be patient when building new habits.',
+    
+    pt_nutrition_title: 'Nutrition & Weaning by Age',
+    pt_nutri_0_6_title: '0 - 6 Months: Breastmilk is Best',
+    pt_nutri_0_6_desc: 'Breastmilk (or formula) is the only nutrition needed. No extra water. Small stomach requires frequent small feedings.',
+    pt_nutri_6_12_title: '6 - 12 Months: Exploring Flavors',
+    pt_nutri_6_12_desc: 'Start weaning from puree to solid (BLW, Japanese, Traditional). Milk is still main, solids are for exploring textures and preventing allergies.',
+    pt_nutri_1_3_title: '1 - 3 Years: Family Meals',
+    pt_nutri_1_3_desc: 'Good chewing skills, can eat soft rice and family meals (less salt). Balance 4 groups: Carbs, Protein, Fats, Vitamins.',
     
     pt_clinic_title: 'Reputable Clinics',
     pt_clinic_1_name: 'Children\'s Hospital 1',
