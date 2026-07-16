@@ -1,4 +1,4 @@
-import { Baby, Menu, Search, Globe, ChevronDown } from 'lucide-react';
+import { Baby, Search, Globe, ChevronDown } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
@@ -7,7 +7,6 @@ import './Navbar.css';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +26,6 @@ export default function Navbar() {
 
   // Đóng menu/dropdown khi chuyển trang
   useEffect(() => {
-    setIsMobileMenuOpen(false);
     setIsLangDropdownOpen(false);
     setIsSearchOpen(false);
   }, [location]);
