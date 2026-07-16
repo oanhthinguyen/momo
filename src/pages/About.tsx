@@ -1,15 +1,30 @@
 import { useLanguage } from '../context/LanguageContext';
+import babyImage from '../assets/baby.jpg';
+import './About.css';
 
 export default function About() {
   const { t } = useLanguage();
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '140px', paddingBottom: '80px', minHeight: '70vh', maxWidth: '800px' }}>
-      <div className="glass" style={{ padding: '40px', borderRadius: '24px' }}>
-        <h1 style={{ marginBottom: '24px', fontSize: '2.5rem', color: 'var(--text)' }}>{t('about_title')}</h1>
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-light)' }}>
-          {t('about_content')}
-        </p>
+    <div className="page-transition container" style={{ paddingTop: '140px', paddingBottom: '100px', minHeight: '70vh', maxWidth: '1100px' }}>
+      <div className="about-container">
+        <div className="about-header">
+          <h1 className="about-title">{t('about_title')}</h1>
+        </div>
+        
+        <div className="about-content-wrapper">
+          <div className="about-image-frame">
+            <img src={babyImage} alt="Momo Review Baby" className="about-image" />
+          </div>
+          
+          <div className="about-text-content glass">
+            <p>{t('about_content')}</p>
+            {/* Split the content visually if we want, but for now just use the translated string */}
+            <div className="about-highlight">
+              ✨ {t('footer_about_us')}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
