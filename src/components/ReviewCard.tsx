@@ -18,7 +18,7 @@ export default function ReviewCard({ id, category, title, rating, summary, image
 
   return (
     <div className="review-card glass">
-      <div className="card-image-placeholder" style={{ backgroundColor: imageUrl ? 'transparent' : imageColor }}>
+      <div className="card-image-placeholder" style={{ backgroundColor: imageColor }}>
         {imageUrl && <img src={imageUrl} alt={title} className="card-image" />}
       </div>
       <div className="card-content">
