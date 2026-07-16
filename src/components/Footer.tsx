@@ -25,6 +25,7 @@ export default function Footer() {
             <li><Link to="/diapers">{t('nav_diapers')}</Link></li>
             <li><Link to="/milk">{t('nav_milk')}</Link></li>
             <li><Link to="/toys">{t('nav_toys')}</Link></li>
+            <li><Link to="/parenting">{t('nav_parenting')}</Link></li>
           </ul>
         </div>
 
