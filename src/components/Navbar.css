@@ -260,4 +260,16 @@
     align-items: center;
     justify-content: center;
   }
+
+  .nav-actions {
+    gap: 4px;
+  }
+
+  .icon-btn {
+    padding: 6px;
+  }
+
+  .search-form.open .search-input {
+    width: 140px;
+  }
 }
