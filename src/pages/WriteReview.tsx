@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { CheckCircle2, Star, UploadCloud } from 'lucide-react';
+import { CheckCircle2, Star, UploadCloud, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './WriteReview.css';
 
@@ -9,6 +9,8 @@ export default function WriteReview() {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -53,13 +55,45 @@ export default function WriteReview() {
           <input type="text" placeholder={t('wr_prod_ph')} required />
         </div>
 
-        <div className="form-group">
+        <div className="form-group custom-select-wrapper">
           <label>{t('wr_category')}</label>
-          <select required>
-            <option value="diapers">{t('nav_diapers')}</option>
-            <option value="milk">{t('nav_milk')}</option>
-            <option value="toys">{t('nav_toys')}</option>
-          </select>
+          <div 
+            className={`custom-select ${isDropdownOpen ? 'open' : ''}`}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <div className="custom-select-trigger">
+              <span>
+                {selectedCategory === 'diapers' && t('nav_diapers')}
+                {selectedCategory === 'milk' && t('nav_milk')}
+                {selectedCategory === 'toys' && t('nav_toys')}
+                {!selectedCategory && 'Chọn chuyên mục...'}
+              </span>
+              <ChevronDown size={20} color="var(--text-light)" />
+            </div>
+            
+            {isDropdownOpen && (
+              <div className="custom-select-options glass">
+                <div 
+                  className={`custom-option ${selectedCategory === 'diapers' ? 'selected' : ''}`}
+                  onClick={() => { setSelectedCategory('diapers'); setIsDropdownOpen(false); }}
+                >
+                  {t('nav_diapers')}
+                </div>
+                <div 
+                  className={`custom-option ${selectedCategory === 'milk' ? 'selected' : ''}`}
+                  onClick={() => { setSelectedCategory('milk'); setIsDropdownOpen(false); }}
+                >
+                  {t('nav_milk')}
+                </div>
+                <div 
+                  className={`custom-option ${selectedCategory === 'toys' ? 'selected' : ''}`}
+                  onClick={() => { setSelectedCategory('toys'); setIsDropdownOpen(false); }}
+                >
+                  {t('nav_toys')}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="form-group">
