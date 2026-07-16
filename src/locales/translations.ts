@@ -75,6 +75,31 @@ export const translations = {
 
     // Diaper Filters & Content
     filter_all: 'Tất cả',
+    
+    // Parenting Tips Page
+    nav_parenting: 'Cẩm nang',
+    pt_title: 'Cẩm nang làm mẹ',
+    pt_subtitle: 'Cùng mẹ vượt qua những khó khăn trên hành trình nuôi con khôn lớn',
+    pt_age_0_6_title: '0 - 6 Tháng Tuổi',
+    pt_age_0_6_prob: 'Khó khăn: Trẻ hay quấy khóc đêm, nôn trớ, khó ngủ, lịch sinh hoạt lộn xộn.',
+    pt_age_0_6_sol: 'Xử lý: Vỗ ợ hơi kỹ sau khi bú, rèn phương pháp ngủ EASY, tạo môi trường ngủ an toàn (trắng, tối, mát mẻ).',
+    pt_age_6_12_title: '6 - 12 Tháng Tuổi',
+    pt_age_6_12_prob: 'Khó khăn: Biếng ăn sinh lý, sốt mọc răng, bám mẹ, khủng hoảng ngủ.',
+    pt_age_6_12_sol: 'Xử lý: Giới thiệu đồ ăn dặm đa dạng (BLW/Kiểu Nhật), dùng đồ gặm nướu lạnh, duy trì nhất quán lịch sinh hoạt.',
+    pt_age_1_3_title: '1 - 3 Tuổi',
+    pt_age_1_3_prob: 'Khó khăn: Khủng hoảng tuổi lên 2, ăn vạ, kén ăn, tập bỏ bỉm.',
+    pt_age_1_3_sol: 'Xử lý: Tôn trọng cảm xúc của con (kỷ luật bàn tay sắt bọc nhung), cho con sự lựa chọn, kiên nhẫn khi rèn thói quen mới.',
+    
+    pt_clinic_title: 'Địa chỉ khám bệnh uy tín',
+    pt_clinic_1_name: 'Bệnh viện Nhi Đồng 1',
+    pt_clinic_1_desc: '341 Sư Vạn Hạnh, P.10, Q.10, TP.HCM',
+    pt_clinic_2_name: 'Bệnh viện Nhi Đồng 2',
+    pt_clinic_2_desc: '14 Lý Tự Trọng, Bến Nghé, Q.1, TP.HCM',
+    pt_clinic_3_name: 'Bệnh viện Đa khoa Quốc tế Vinmec',
+    pt_clinic_3_desc: '208 Nguyễn Hữu Cảnh, Q.Bình Thạnh, TP.HCM',
+    pt_clinic_4_name: 'Viện Dinh dưỡng Quốc gia',
+    pt_clinic_4_desc: '48B Tăng Bạt Hổ, Phạm Đình Hổ, Hai Bà Trưng, Hà Nội',
+
     filter_tape: 'Bỉm dán',
     filter_pants: 'Bỉm quần',
     
@@ -191,6 +216,31 @@ export const translations = {
 
     // Diaper Filters & Content
     filter_all: 'All',
+
+    // Parenting Tips Page
+    nav_parenting: 'Parenting',
+    pt_title: 'Parenting Guide',
+    pt_subtitle: 'Accompanying mothers through the challenges of raising children',
+    pt_age_0_6_title: '0 - 6 Months',
+    pt_age_0_6_prob: 'Challenges: Night crying, spit-up, sleep regressions, irregular routines.',
+    pt_age_0_6_sol: 'Solutions: Burp properly after feeding, try EASY routine, create a safe sleep environment (white noise, dark, cool).',
+    pt_age_6_12_title: '6 - 12 Months',
+    pt_age_6_12_prob: 'Challenges: Picky eating, teething fever, separation anxiety.',
+    pt_age_6_12_sol: 'Solutions: Introduce diverse solid foods (BLW/Japanese style), use cold teethers, maintain consistent routines.',
+    pt_age_1_3_title: '1 - 3 Years',
+    pt_age_1_3_prob: 'Challenges: Terrible twos, tantrums, picky eating, potty training.',
+    pt_age_1_3_sol: 'Solutions: Acknowledge feelings (gentle parenting), offer choices, be patient when building new habits.',
+    
+    pt_clinic_title: 'Reputable Clinics',
+    pt_clinic_1_name: 'Children\'s Hospital 1',
+    pt_clinic_1_desc: '341 Su Van Hanh, W.10, D.10, HCMC',
+    pt_clinic_2_name: 'Children\'s Hospital 2',
+    pt_clinic_2_desc: '14 Ly Tu Trong, Ben Nghe, D.1, HCMC',
+    pt_clinic_3_name: 'Vinmec International Hospital',
+    pt_clinic_3_desc: '208 Nguyen Huu Canh, Binh Thanh, HCMC',
+    pt_clinic_4_name: 'National Institute of Nutrition',
+    pt_clinic_4_desc: '48B Tang Bat Ho, Hai Ba Trung, Hanoi',
+
     filter_tape: 'Tape Diapers',
     filter_pants: 'Pants Diapers',
 

@@ -67,6 +67,7 @@ export default function Navbar() {
           <Link to="/diapers" className={`nav-link ${location.pathname === '/diapers' ? 'active' : ''}`}>{t('nav_diapers')}</Link>
           <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`}>{t('nav_milk')}</Link>
           <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`}>{t('nav_toys')}</Link>
+          <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`}>{t('nav_parenting')}</Link>
         </nav>
 
         <div className="nav-actions">

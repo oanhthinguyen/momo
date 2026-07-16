@@ -1,0 +1,201 @@
+.pt-container {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pt-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.pt-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+
+.pt-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pt-section {
+  margin-bottom: 60px;
+}
+
+.section-heading {
+  font-size: 1.8rem;
+  color: var(--text);
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 15%;
+  width: 70%;
+  height: 4px;
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+/* Age Grid */
+.pt-age-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.pt-age-card {
+  padding: 32px;
+  border-radius: 24px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.pt-age-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.age-badge {
+  position: absolute;
+  top: -16px;
+  right: 24px;
+  background: var(--accent);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(251, 191, 36, 0.3);
+}
+
+.pt-age-card h3 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 24px;
+  padding-right: 60px;
+}
+
+.pt-prob-sol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pt-prob, .pt-sol {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.pt-prob {
+  border-left: 4px solid #ef4444;
+}
+
+.pt-sol {
+  border-left: 4px solid #10b981;
+}
+
+.prob-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sol-icon {
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pt-prob p, .pt-sol p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Clinics Grid */
+.pt-clinic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.pt-clinic-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.pt-clinic-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.clinic-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: #f0fdfa;
+  color: #0d9488;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.clinic-info h4 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.clinic-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.clinic-address p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .pt-age-grid {
+    grid-template-columns: 1fr;
+  }
+  .pt-clinic-grid {
+    grid-template-columns: 1fr;
+  }
+  .pt-title {
+    font-size: 2.2rem;
+  }
+}
