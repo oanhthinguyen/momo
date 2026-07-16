@@ -44,6 +44,18 @@ export const translations = {
     wr_submit: 'Gửi Đánh Giá',
     wr_success: 'Cảm ơn bạn! Đánh giá đã được ghi nhận và đang chờ duyệt.',
     
+    // Static Pages
+    footer_about_us: 'Giới thiệu',
+    footer_contact: 'Liên hệ',
+    footer_privacy: 'Chính sách bảo mật',
+    
+    about_title: 'Về Momo Review',
+    about_content: 'Momo Review là cộng đồng chia sẻ những đánh giá chân thực, khách quan nhất về các sản phẩm dành cho mẹ và bé. Mục tiêu của chúng tôi là giúp các bà mẹ bỉm sữa tiết kiệm thời gian, tiền bạc và chọn được những sản phẩm an toàn, tốt nhất cho sự phát triển toàn diện của trẻ.',
+    contact_title: 'Liên hệ với chúng tôi',
+    contact_content: 'Bạn có thắc mắc, đề xuất hay muốn hợp tác? Hãy gửi email cho chúng tôi tại địa chỉ: contact@momoreview.com. Chúng tôi luôn sẵn sàng lắng nghe và phản hồi bạn trong thời gian sớm nhất.',
+    privacy_title: 'Chính sách bảo mật',
+    privacy_content: 'Chúng tôi cam kết bảo vệ sự riêng tư của bạn. Mọi thông tin cá nhân bạn cung cấp trên trang web sẽ chỉ được sử dụng để cải thiện trải nghiệm người dùng và hoàn toàn không bị chia sẻ cho bất kỳ bên thứ ba nào mà không có sự đồng ý của bạn.',
+
     // Diaper Filters & Content
     filter_all: 'Tất cả',
     filter_tape: 'Bỉm dán',
@@ -130,6 +142,18 @@ export const translations = {
     wr_summary_ph: 'Your general thoughts...',
     wr_submit: 'Submit Review',
     wr_success: 'Thank you! Your review has been submitted and is pending approval.',
+
+    // Static Pages
+    footer_about_us: 'About Us',
+    footer_contact: 'Contact',
+    footer_privacy: 'Privacy Policy',
+
+    about_title: 'About Momo Review',
+    about_content: 'Momo Review is a community sharing the most authentic and objective reviews on products for mothers and babies. Our goal is to help moms save time, money, and choose the safest and best products for their children\'s comprehensive development.',
+    contact_title: 'Contact Us',
+    contact_content: 'Do you have questions, suggestions, or want to collaborate? Please email us at: contact@momoreview.com. We are always ready to listen and will get back to you as soon as possible.',
+    privacy_title: 'Privacy Policy',
+    privacy_content: 'We are committed to protecting your privacy. Any personal information you provide on the website will only be used to improve user experience and will absolutely not be shared with any third party without your consent.',
 
     // Diaper Filters & Content
     filter_all: 'All',

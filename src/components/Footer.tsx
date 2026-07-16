@@ -1,4 +1,5 @@
 import { Baby } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import './Footer.css';
 
@@ -21,18 +22,18 @@ export default function Footer() {
         <div className="footer-links">
           <h4>{t('footer_cat')}</h4>
           <ul>
-            <li><a href="#">{t('nav_diapers')}</a></li>
-            <li><a href="#">{t('nav_milk')}</a></li>
-            <li><a href="#">{t('nav_toys')}</a></li>
+            <li><Link to="/diapers">{t('nav_diapers')}</Link></li>
+            <li><Link to="/milk">{t('nav_milk')}</Link></li>
+            <li><Link to="/toys">{t('nav_toys')}</Link></li>
           </ul>
         </div>
 
         <div className="footer-links">
           <h4>{t('footer_about')}</h4>
           <ul>
-            <li><a href="#">Giới thiệu</a></li>
-            <li><a href="#">Liên hệ</a></li>
-            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><Link to="/about">{t('footer_about_us')}</Link></li>
+            <li><Link to="/contact">{t('footer_contact')}</Link></li>
+            <li><Link to="/privacy">{t('footer_privacy')}</Link></li>
           </ul>
         </div>
       </div>

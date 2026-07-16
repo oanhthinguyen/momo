@@ -9,6 +9,9 @@ import Toys from './pages/Toys';
 import ReviewDetail from './pages/ReviewDetail';
 import Search from './pages/Search';
 import WriteReview from './pages/WriteReview';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
 import './App.css';
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/write-review" element={<WriteReview />} />
             <Route path="/review/:id" element={<ReviewDetail />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
 
         </main>
