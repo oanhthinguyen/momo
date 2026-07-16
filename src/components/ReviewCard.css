@@ -49,7 +49,6 @@
 .card-rating {
   display: flex;
   gap: 4px;
-  margin-bottom: 16px;
 }
 
 .card-summary {

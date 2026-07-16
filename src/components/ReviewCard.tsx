@@ -1,8 +1,10 @@
 import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import './ReviewCard.css';
 
 interface ReviewCardProps {
+  id: number;
   category: string;
   title: string;
   rating: number;
@@ -10,7 +12,7 @@ interface ReviewCardProps {
   imageColor: string;
 }
 
-export default function ReviewCard({ category, title, rating, summary, imageColor }: ReviewCardProps) {
+export default function ReviewCard({ id, category, title, rating, summary, imageColor }: ReviewCardProps) {
   const { t } = useLanguage();
 
   return (
@@ -26,7 +28,7 @@ export default function ReviewCard({ category, title, rating, summary, imageColo
           ))}
         </div>
         <p className="card-summary">{summary}</p>
-        <button className="read-more">{t('read_more')}</button>
+        <Link to={`/review/${id}`} className="read-more">{t('read_more')}</Link>
       </div>
     </div>
   );

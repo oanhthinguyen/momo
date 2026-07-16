@@ -119,15 +119,13 @@ button {
 
 /* Language Transition */
 .lang-transition-wrapper {
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .lang-fade-out {
   opacity: 0;
-  transform: translateY(5px);
 }
 
 .lang-fade-in {
   opacity: 1;
-  transform: translateY(0);
 }

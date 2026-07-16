@@ -4,16 +4,15 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid var(--border);
   transition: all 0.3s ease;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar.scrolled {
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
+  /* You can add additional scrolled styles here if needed */
 }
 
 .navbar-container {
