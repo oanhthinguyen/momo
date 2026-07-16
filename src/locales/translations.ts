@@ -63,7 +63,15 @@ export const translations = {
     contact_our_info: 'Thông tin của chúng tôi',
     contact_your_feedback: 'Ý kiến của bạn',
     privacy_title: 'Chính sách bảo mật',
-    privacy_content: 'Chúng tôi cam kết bảo vệ sự riêng tư của bạn. Mọi thông tin cá nhân bạn cung cấp trên trang web sẽ chỉ được sử dụng để cải thiện trải nghiệm người dùng và hoàn toàn không bị chia sẻ cho bất kỳ bên thứ ba nào mà không có sự đồng ý của bạn.',
+    privacy_content: 'Tại Momo Review, sự riêng tư và bảo mật thông tin của bạn là ưu tiên hàng đầu. Chúng tôi cam kết bảo vệ dữ liệu cá nhân của bạn một cách minh bạch và an toàn nhất.',
+    privacy_item1_title: 'Thu thập thông tin',
+    privacy_item1_desc: 'Chúng tôi chỉ thu thập những thông tin cần thiết (như email, tên hiển thị) khi bạn tự nguyện đăng ký hoặc gửi đánh giá, nhằm cá nhân hóa trải nghiệm của bạn.',
+    privacy_item2_title: 'Sử dụng dữ liệu',
+    privacy_item2_desc: 'Dữ liệu của bạn được sử dụng để duy trì cộng đồng, gửi thông báo quan trọng và cải thiện các tính năng của website. Tuyệt đối không dùng cho mục đích spam.',
+    privacy_item3_title: 'Bảo mật an toàn',
+    privacy_item3_desc: 'Mọi thông tin đều được mã hóa và bảo vệ bằng các biện pháp an ninh mạng tiên tiến nhất, ngăn chặn các truy cập trái phép.',
+    privacy_item4_title: 'Không chia sẻ bên thứ ba',
+    privacy_item4_desc: 'Chúng tôi cam kết không mua bán, trao đổi hay chia sẻ thông tin cá nhân của bạn cho bất kỳ bên thứ ba nào khi chưa có sự đồng ý.',
 
     // Diaper Filters & Content
     filter_all: 'Tất cả',
@@ -171,7 +179,15 @@ export const translations = {
     contact_our_info: 'Our Information',
     contact_your_feedback: 'Your Feedback',
     privacy_title: 'Privacy Policy',
-    privacy_content: 'We are committed to protecting your privacy. Any personal information you provide on the website will only be used to improve user experience and will absolutely not be shared with any third party without your consent.',
+    privacy_content: 'At Momo Review, your privacy and data security are our top priorities. We are committed to protecting your personal data transparently and safely.',
+    privacy_item1_title: 'Information Collection',
+    privacy_item1_desc: 'We only collect essential information (like email, display name) when you voluntarily register or submit a review, to personalize your experience.',
+    privacy_item2_title: 'Data Usage',
+    privacy_item2_desc: 'Your data is used to maintain the community, send important notices, and improve website features. Absolutely not used for spamming.',
+    privacy_item3_title: 'Security',
+    privacy_item3_desc: 'All information is encrypted and protected using advanced cybersecurity measures to prevent unauthorized access.',
+    privacy_item4_title: 'No Third-Party Sharing',
+    privacy_item4_desc: 'We are committed not to sell, trade, or share your personal information with any third party without your consent.',
 
     // Diaper Filters & Content
     filter_all: 'All',
