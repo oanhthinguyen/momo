@@ -42,6 +42,7 @@ export default function Search() {
             rating={product.rating}
             summary={product.summary}
             imageColor={product.imageColor}
+            imageUrl={product.imageUrl}
           />
         ))}
       </div>

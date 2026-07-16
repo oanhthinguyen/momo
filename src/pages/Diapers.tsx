@@ -51,6 +51,7 @@ export default function Diapers() {
             rating={diaper.rating}
             summary={diaper.summary}
             imageColor={diaper.imageColor}
+            imageUrl={diaper.imageUrl}
           />
         ))}
       </div>

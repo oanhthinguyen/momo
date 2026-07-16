@@ -57,6 +57,7 @@ export default function Toys() {
             rating={toy.rating}
             summary={toy.summary}
             imageColor={toy.imageColor}
+            imageUrl={toy.imageUrl}
           />
         ))}
       </div>

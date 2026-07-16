@@ -10,14 +10,16 @@ interface ReviewCardProps {
   rating: number;
   summary: string;
   imageColor: string;
+  imageUrl?: string;
 }
 
-export default function ReviewCard({ id, category, title, rating, summary, imageColor }: ReviewCardProps) {
+export default function ReviewCard({ id, category, title, rating, summary, imageColor, imageUrl }: ReviewCardProps) {
   const { t } = useLanguage();
 
   return (
     <div className="review-card glass">
-      <div className="card-image-placeholder" style={{ backgroundColor: imageColor }}>
+      <div className="card-image-placeholder" style={{ backgroundColor: imageUrl ? 'transparent' : imageColor }}>
+        {imageUrl && <img src={imageUrl} alt={title} className="card-image" />}
       </div>
       <div className="card-content">
         <span className="card-category">{category}</span>

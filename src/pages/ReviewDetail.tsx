@@ -1,6 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+
+import taWebp from '../assets/ta.webp';
+import quanMoonWebp from '../assets/quan-moon.webp';
+import danHuggieWebp from '../assets/dan-huggie.webp';
+import quanBobbyWebp from '../assets/quan-bobby.webp';
+import mejiWebp from '../assets/meji.webp';
+import suaAptamilWebp from '../assets/sua-aptamil.webp';
+import suaNanWebp from '../assets/sua-nan.webp';
+import suaPediaWebp from '../assets/sua-pedia.webp';
+import kechuAWebp from '../assets/kechuA.webp';
+import xegaWebp from '../assets/xega.webp';
+import legoWebp from '../assets/lego.webp';
+import sachvaiWebp from '../assets/sachvai.webp';
+
 import './ReviewDetail.css';
 
 // Dữ liệu mẫu (Mock data) cho trang chi tiết
@@ -56,7 +70,16 @@ export default function ReviewDetail() {
 
   return (
     <div className="page-transition review-detail-page">
-      <div className="detail-banner" style={{ backgroundColor: data.imageColor }}>
+      <div 
+        className="detail-banner" 
+        style={{ 
+          backgroundColor: data.imageColor,
+          backgroundImage: data.imageUrl ? `url(${data.imageUrl})` : 'none',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay'
+        }}
+      >
         <div className="container banner-content">
           <button className="back-btn" onClick={() => navigate(-1)}>
             <ArrowLeft size={20} /> {language === 'vi' ? 'Trở về' : 'Back'}

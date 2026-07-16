@@ -32,6 +32,7 @@ export default function Categories() {
               rating={review!.rating}
               summary={review!.summary}
               imageColor={review!.imageColor}
+              imageUrl={review!.imageUrl}
             />
           ))}
         </div>

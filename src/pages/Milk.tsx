@@ -57,6 +57,7 @@ export default function Milk() {
             rating={milk.rating}
             summary={milk.summary}
             imageColor={milk.imageColor}
+            imageUrl={milk.imageUrl}
           />
         ))}
       </div>
