@@ -36,12 +36,12 @@
 .info-icon {
   width: 48px;
   height: 48px;
-  background: var(--primary-light);
+  background: #d1fae5;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary);
+  color: #10b981;
 }
 
 .info-content h3 {
