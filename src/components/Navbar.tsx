@@ -116,9 +116,6 @@ export default function Navbar() {
             </form>
           </div>
           
-          <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            <Menu size={24} />
-          </button>
         </div>
       </div>
     </header>
