@@ -1,8 +1,14 @@
 .contact-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-top: 32px;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.contact-column-title {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 24px;
 }
 
 .contact-info {

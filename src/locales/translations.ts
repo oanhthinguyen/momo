@@ -60,6 +60,8 @@ export const translations = {
     contact_form_message: 'Nội dung tin nhắn',
     contact_form_submit: 'Gửi tin nhắn',
     contact_form_success: 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.',
+    contact_our_info: 'Thông tin của chúng tôi',
+    contact_your_feedback: 'Ý kiến của bạn',
     privacy_title: 'Chính sách bảo mật',
     privacy_content: 'Chúng tôi cam kết bảo vệ sự riêng tư của bạn. Mọi thông tin cá nhân bạn cung cấp trên trang web sẽ chỉ được sử dụng để cải thiện trải nghiệm người dùng và hoàn toàn không bị chia sẻ cho bất kỳ bên thứ ba nào mà không có sự đồng ý của bạn.',
 
@@ -166,6 +168,8 @@ export const translations = {
     contact_form_message: 'Message Content',
     contact_form_submit: 'Send Message',
     contact_form_success: 'Thank you for reaching out! We will get back to you as soon as possible.',
+    contact_our_info: 'Our Information',
+    contact_your_feedback: 'Your Feedback',
     privacy_title: 'Privacy Policy',
     privacy_content: 'We are committed to protecting your privacy. Any personal information you provide on the website will only be used to improve user experience and will absolutely not be shared with any third party without your consent.',
 

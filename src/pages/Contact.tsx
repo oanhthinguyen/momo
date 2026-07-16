@@ -28,30 +28,35 @@ export default function Contact() {
 
         <div className="contact-container">
           {/* Contact Information */}
-          <div className="contact-info">
-            <div className="info-card">
-              <div className="info-icon">
-                <Mail size={24} />
+          <div className="contact-left">
+            <h2 className="contact-column-title">{t('contact_our_info')}</h2>
+            <div className="contact-info">
+              <div className="info-card">
+                <div className="info-icon">
+                  <Mail size={24} />
+                </div>
+                <div className="info-content">
+                  <h3>{t('contact_email')}</h3>
+                  <p>maruchan280519@gmail.com</p>
+                </div>
               </div>
-              <div className="info-content">
-                <h3>{t('contact_email')}</h3>
-                <p>maruchan280519@gmail.com</p>
-              </div>
-            </div>
-            
-            <div className="info-card">
-              <div className="info-icon">
-                <Phone size={24} />
-              </div>
-              <div className="info-content">
-                <h3>{t('contact_phone')}</h3>
-                <p>0906386947</p>
+              
+              <div className="info-card">
+                <div className="info-icon">
+                  <Phone size={24} />
+                </div>
+                <div className="info-content">
+                  <h3>{t('contact_phone')}</h3>
+                  <p>0906386947</p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <div className="contact-right">
+            <h2 className="contact-column-title">{t('contact_your_feedback')}</h2>
+            <form className="contact-form" onSubmit={handleSubmit}>
             {submitted ? (
               <div className="success-message">
                 {t('contact_form_success')}
@@ -78,7 +83,8 @@ export default function Contact() {
                 </button>
               </>
             )}
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
