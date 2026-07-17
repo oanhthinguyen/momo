@@ -11,7 +11,7 @@ interface Review {
   pros: string;
   cons: string;
   summary: string;
-  ingredients?: string;
+  ingredients?: any;
   author: string;
   date: string;
   imageUrl: string | null;
@@ -114,7 +114,7 @@ export default function Admin() {
                   <p><strong>Ưu điểm:</strong> {review.pros}</p>
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
                   {review.category === 'milk' && review.ingredients && (
-                    <p><strong>Thành phần:</strong> {review.ingredients}</p>
+                    <p><strong>Thành phần:</strong> {Array.isArray(review.ingredients) ? review.ingredients.map((i: any) => `${i.name}: ${i.amount}`).join(', ') : review.ingredients}</p>
                   )}
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>
@@ -167,7 +167,7 @@ export default function Admin() {
                   <p><strong>Ưu điểm:</strong> {review.pros}</p>
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
                   {review.category === 'milk' && review.ingredients && (
-                    <p><strong>Thành phần:</strong> {review.ingredients}</p>
+                    <p><strong>Thành phần:</strong> {Array.isArray(review.ingredients) ? review.ingredients.map((i: any) => `${i.name}: ${i.amount}`).join(', ') : review.ingredients}</p>
                   )}
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>

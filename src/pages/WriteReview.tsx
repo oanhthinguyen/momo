@@ -1,7 +1,7 @@
 import { SEO } from '../components/SEO';
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { CheckCircle2, Star, UploadCloud, ChevronDown } from 'lucide-react';
+import { CheckCircle2, Star, UploadCloud, ChevronDown, Plus, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import './WriteReview.css';
@@ -18,11 +18,27 @@ export default function WriteReview() {
   const [pros, setPros] = useState('');
   const [cons, setCons] = useState('');
   const [summary, setSummary] = useState('');
-  const [ingredients, setIngredients] = useState('');
+  const [ingredients, setIngredients] = useState<{name: string, amount: string}[]>([{ name: '', amount: '' }]);
   const [email, setEmail] = useState('');
   
   const dropdownRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleIngredientChange = (index: number, field: 'name' | 'amount', value: string) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index][field] = value;
+    setIngredients(newIngredients);
+  };
+
+  const addIngredientRow = () => {
+    setIngredients([...ingredients, { name: '', amount: '' }]);
+  };
+
+  const removeIngredientRow = (index: number) => {
+    if (ingredients.length > 1) {
+      setIngredients(ingredients.filter((_, i) => i !== index));
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -91,7 +107,7 @@ export default function WriteReview() {
       pros,
       cons,
       summary,
-      ingredients: selectedCategory === 'milk' ? ingredients : '',
+      ingredients: selectedCategory === 'milk' ? ingredients.filter(i => i.name.trim() !== '') : [],
       author: authorEmail,
       date: new Date().toISOString(),
       imageUrl: base64Images.length > 0 ? base64Images[0] : null,
@@ -210,13 +226,40 @@ export default function WriteReview() {
 
         {selectedCategory === 'milk' && (
           <div className="form-group animate-fade-in">
-            <label>Thành phần nổi bật (Dành riêng cho Sữa)</label>
-            <textarea 
-              placeholder="Ví dụ: DHA, ARA, Canxi, Sữa non Colostrum... (Mỗi thành phần cách nhau bởi dấu phẩy)" 
-              rows={2} 
-              value={ingredients} 
-              onChange={(e) => setIngredients(e.target.value)} 
-            ></textarea>
+            <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Bảng thành phần chi tiết (Dành riêng cho Sữa)</span>
+              <button type="button" onClick={addIngredientRow} style={{ background: 'none', border: 'none', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', fontSize: '14px', fontWeight: 600 }}>
+                <Plus size={16} /> Thêm chất
+              </button>
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {ingredients.map((ing, index) => (
+                <div key={index} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <input 
+                    type="text" 
+                    placeholder="Tên chất (VD: DHA)" 
+                    value={ing.name} 
+                    onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+                    style={{ flex: 1 }}
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Hàm lượng (VD: 9-11 mg)" 
+                    value={ing.amount} 
+                    onChange={(e) => handleIngredientChange(index, 'amount', e.target.value)}
+                    style={{ flex: 1 }}
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => removeIngredientRow(index)}
+                    style={{ background: 'none', border: 'none', color: ingredients.length > 1 ? '#ef4444' : '#ccc', cursor: ingredients.length > 1 ? 'pointer' : 'not-allowed', padding: '8px' }}
+                    disabled={ingredients.length <= 1}
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
