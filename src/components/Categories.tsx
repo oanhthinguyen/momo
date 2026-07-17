@@ -50,7 +50,7 @@ export default function Categories() {
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '48px' }}>
-          <Link to="/reviews" className="btn btn-outline" style={{ padding: '12px 40px', borderRadius: '30px', fontSize: '1.05rem', fontWeight: 600, color: 'var(--primary)', borderColor: 'var(--primary)', background: 'transparent' }}>
+          <Link to="/reviews" className="btn btn-outline" style={{ padding: '12px 40px', borderRadius: '30px', fontSize: '1.05rem', fontWeight: 600 }}>
             Xem thêm đánh giá
           </Link>
         </div>
