@@ -98,12 +98,15 @@
   padding: 40px;
   border-radius: 24px;
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .profile-content h2 {
   font-size: 1.5rem;
   color: var(--primary-dark);
   margin-bottom: 24px;
+  text-align: center;
 }
 
 .profile-details {
@@ -139,7 +142,6 @@
 .detail-text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 
 .detail-label {
