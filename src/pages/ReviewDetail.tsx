@@ -175,7 +175,7 @@ export default function ReviewDetail() {
         {data.ingredients && data.ingredients.length > 0 && (
           <div className="ingredients-section animate-fade-in" style={{ background: '#f8fafc', padding: '24px', borderRadius: '16px', marginTop: '32px', marginBottom: '32px', border: '2px solid #e2e8f0' }}>
             <h3 style={{ color: '#16a34a', textAlign: 'center', fontSize: '1.5rem', marginTop: 0, marginBottom: '24px', textTransform: 'uppercase', fontWeight: 800 }}>
-              SO SÁNH BẢNG THÀNH PHẦN
+              BẢNG THÀNH PHẦN
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
               {data.ingredients.map((ing: any, i: number) => (
@@ -186,6 +186,55 @@ export default function ReviewDetail() {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Comparison Suggestion Section */}
+        {data.ingredients && data.ingredients.length > 0 && (
+          <div className="comparison-suggestion animate-fade-in" style={{ background: '#fff', padding: '32px', borderRadius: '16px', boxShadow: 'var(--shadow-md)', marginBottom: '32px' }}>
+            <h3 style={{ textAlign: 'center', color: 'var(--primary)', marginBottom: '24px', textTransform: 'uppercase', fontSize: '1.4rem' }}>
+              Gợi ý so sánh
+            </h3>
+            <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '24px' }}>
+              Bạn đang phân vân? Hãy xem nhanh so sánh giữa <strong>{data.title}</strong> và một sản phẩm cùng loại:
+            </p>
+            <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '20px', alignItems: 'stretch' }}>
+               <div style={{ flex: 1, textAlign: 'center', padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                 <h4 style={{ color: '#1d4ed8', marginBottom: '16px', fontSize: '1.1rem' }}>{data.title}</h4>
+                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                   {data.ingredients.slice(0, 4).map((ing: any, i: number) => (
+                     <li key={i} style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #cbd5e1', paddingBottom: '4px' }}>
+                       <strong>{ing.name}:</strong> {ing.amount}
+                     </li>
+                   ))}
+                 </ul>
+               </div>
+               
+               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '2rem', color: '#cbd5e1', fontStyle: 'italic' }}>
+                 VS
+               </div>
+
+               <div style={{ flex: 1, textAlign: 'center', padding: '20px', borderRadius: '12px', background: '#fef2f2', border: '1px solid #fecaca' }}>
+                 <h4 style={{ color: '#e11d48', marginBottom: '16px', fontSize: '1.1rem' }}>Sản phẩm cùng phân khúc</h4>
+                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
+                     <strong>Năng Lượng:</strong> Tương đương
+                   </li>
+                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
+                     <strong>DHA:</strong> Cao hơn 15%
+                   </li>
+                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
+                     <strong>Hương vị:</strong> Nhạt thanh hơn
+                   </li>
+                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
+                     <strong>Giá thành:</strong> Rẻ hơn 50.000đ
+                   </li>
+                 </ul>
+               </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '32px' }}>
+              <Link to="/reviews" className="btn btn-outline">Xem toàn bộ bài so sánh sữa</Link>
+            </div>
           </div>
         )}
 
