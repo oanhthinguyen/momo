@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from './ReviewCard';
 import { useMockData } from '../data/useMockData';
@@ -6,13 +8,23 @@ import './Categories.css';
 export default function Categories() {
   const { t } = useLanguage();
   const { allProducts } = useMockData();
+  const [approvedReviews, setApprovedReviews] = useState<any[]>([]);
+
+  useEffect(() => {
+    const reviews = JSON.parse(localStorage.getItem('momo_approved_reviews') || '[]');
+    setApprovedReviews(reviews);
+  }, []);
   
-  // Lấy 3 sản phẩm đầu tiên làm nổi bật
-  const featuredReviews = [
+  
+  // Lấy 3 sản phẩm đầu tiên làm nổi bật (dữ liệu tĩnh)
+  const staticFeaturedReviews = [
     allProducts.find(p => p.id === 1),
     allProducts.find(p => p.id === 5),
     allProducts.find(p => p.id === 9)
   ].filter(Boolean);
+
+  // Kết hợp đánh giá mới duyệt và đánh giá tĩnh (ưu tiên mới duyệt trước)
+  const displayReviews = [...approvedReviews, ...staticFeaturedReviews].slice(0, 3);
 
   return (
     <section id="categories-section" className="categories-section">
@@ -23,18 +35,24 @@ export default function Categories() {
         </div>
         
         <div className="category-grid">
-          {featuredReviews.map((review) => (
+          {displayReviews.map((review) => (
             <ReviewCard 
               key={review!.id} 
               id={review!.id}
               category={review!.category}
-              title={review!.title}
+              title={review!.title || review!.productName}
               rating={review!.rating}
               summary={review!.summary}
-              imageColor={review!.imageColor}
+              imageColor={review!.imageColor || '#f87171'}
               imageUrl={review!.imageUrl}
             />
           ))}
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <Link to="/reviews" className="btn btn-outline" style={{ padding: '12px 40px', borderRadius: '30px', fontSize: '1.05rem', fontWeight: 600, color: 'var(--primary)', borderColor: 'var(--primary)', background: 'transparent' }}>
+            Xem thêm đánh giá
+          </Link>
         </div>
       </div>
     </section>

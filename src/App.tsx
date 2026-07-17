@@ -18,6 +18,8 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
+import Admin from './pages/Admin';
+import AllReviews from './pages/AllReviews';
 import './App.css';
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/edit" element={<EditProfile />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/reviews" element={<AllReviews />} />
           </Routes>
 
         </main>

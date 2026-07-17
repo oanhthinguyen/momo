@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { CheckCircle2, Star, UploadCloud, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 import './WriteReview.css';
 
 export default function WriteReview() {
@@ -13,6 +14,11 @@ export default function WriteReview() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [productName, setProductName] = useState('');
+  const [pros, setPros] = useState('');
+  const [cons, setCons] = useState('');
+  const [summary, setSummary] = useState('');
+  const [email, setEmail] = useState('');
   
   const dropdownRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -36,6 +42,7 @@ export default function WriteReview() {
     };
   }, []);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -43,12 +50,75 @@ export default function WriteReview() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      const file = e.target.files[0];
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!selectedCategory || rating === 0) {
+      alert('Vui lòng chọn chuyên mục và đánh giá sao.');
+      return;
+    }
+
+    const currentUser = localStorage.getItem('user');
+    const authorEmail = currentUser || email || 'Anonymous';
+
+    let base64Image = null;
+    if (selectedFile) {
+      base64Image = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(selectedFile);
+      });
+    }
+
+    const newReview = {
+      id: Date.now(),
+      productName,
+      category: selectedCategory,
+      rating,
+      pros,
+      cons,
+      summary,
+      author: authorEmail,
+      date: new Date().toISOString(),
+      imageUrl: base64Image
+    };
+
+    const pendingReviews = JSON.parse(localStorage.getItem('momo_pending_reviews') || '[]');
+    pendingReviews.push(newReview);
+    localStorage.setItem('momo_pending_reviews', JSON.stringify(pendingReviews));
+
+    // Send Email via EmailJS
+    try {
+      const templateParams = {
+        to_email: 'maruchan280519@gmail.com',
+        author_email: authorEmail,
+        product_name: productName,
+        category: selectedCategory,
+        rating: rating,
+        summary: summary,
+        review_date: new Date().toLocaleDateString('vi-VN')
+      };
+
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(serviceId, templateId, templateParams, publicKey);
+        console.log('Email sent successfully via EmailJS!');
+      } else {
+        console.warn('EmailJS keys not found. Skipping email sending. (Please configure .env)');
+      }
+    } catch (err) {
+      console.error('Failed to send email:', err);
+    }
+
     setIsSubmitted(true);
   };
 
@@ -57,6 +127,9 @@ export default function WriteReview() {
       <div className="page-transition container wr-success-container">
         <CheckCircle2 size={80} color="var(--success)" className="success-icon" />
         <h2>{t('wr_success')}</h2>
+        <p style={{ color: 'var(--text-light)', marginBottom: '24px', textAlign: 'center' }}>
+          Đánh giá của bạn đã được gửi qua email cho Ban Quản Trị để xét duyệt.<br />Cảm ơn bạn đã đóng góp!
+        </p>
         <Link to="/" className="btn btn-primary wr-return-btn">
           {t('search_results_for') === 'Search results for' ? 'Return to Home' : 'Về Trang Chủ'}
         </Link>
@@ -76,13 +149,13 @@ export default function WriteReview() {
         {!isLoggedIn && (
           <div className="form-group">
             <label>{t('auth_email_phone') || 'Email / Số điện thoại'}</label>
-            <input type="text" placeholder="Để chúng tôi có thể liên hệ khi cần thiết..." required />
+            <input type="text" placeholder="Để chúng tôi có thể liên hệ khi cần thiết..." value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
         )}
 
         <div className="form-group">
           <label>{t('wr_prod_name')}</label>
-          <input type="text" placeholder={t('wr_prod_ph')} required />
+          <input type="text" placeholder={t('wr_prod_ph')} value={productName} onChange={(e) => setProductName(e.target.value)} required />
         </div>
 
         <div className="form-group custom-select-wrapper" ref={dropdownRef}>
@@ -147,22 +220,22 @@ export default function WriteReview() {
         <div className="form-row">
           <div className="form-group">
             <label>{t('wr_pros')}</label>
-            <textarea placeholder={t('wr_pros_ph')} rows={3} required></textarea>
+            <textarea placeholder={t('wr_pros_ph')} rows={3} value={pros} onChange={(e) => setPros(e.target.value)} required></textarea>
           </div>
           <div className="form-group">
             <label>{t('wr_cons')}</label>
-            <textarea placeholder={t('wr_cons_ph')} rows={3} required></textarea>
+            <textarea placeholder={t('wr_cons_ph')} rows={3} value={cons} onChange={(e) => setCons(e.target.value)} required></textarea>
           </div>
         </div>
 
         <div className="form-group">
           <label>{t('wr_summary')}</label>
-          <textarea placeholder={t('wr_summary_ph')} rows={4} required></textarea>
+          <textarea placeholder={t('wr_summary_ph')} rows={4} value={summary} onChange={(e) => setSummary(e.target.value)} required></textarea>
         </div>
 
         <div className="form-group">
           <label>Hình ảnh (Tùy chọn)</label>
-          <div className="upload-box" onClick={handleUploadClick}>
+          <div className="upload-box" onClick={handleUploadClick} style={{ padding: previewUrl ? '8px' : '40px', overflow: 'hidden' }}>
             <input 
               type="file" 
               ref={fileInputRef}
@@ -170,14 +243,24 @@ export default function WriteReview() {
               accept="image/*"
               onChange={handleFileChange}
             />
-            <UploadCloud size={32} color={selectedFile ? "var(--primary)" : "var(--text-light)"} />
-            <p>
-              {selectedFile ? (
-                <strong className="wr-file-selected">Đã chọn: {selectedFile.name}</strong>
-              ) : (
-                'Nhấp để tải ảnh lên (hoặc kéo thả vào đây)'
-              )}
-            </p>
+            {previewUrl ? (
+              <div style={{ position: 'relative', width: '100%', height: '220px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={previewUrl} alt="Preview" style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '12px' }} />
+                <div 
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', opacity: 0, transition: 'opacity 0.2s', borderRadius: '12px', cursor: 'pointer', gap: '8px' }} 
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'} 
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
+                >
+                  <UploadCloud size={32} color="white" />
+                  <span style={{ fontWeight: 500 }}>Nhấp để đổi ảnh khác</span>
+                </div>
+              </div>
+            ) : (
+              <>
+                <UploadCloud size={32} color="var(--text-light)" />
+                <p>Nhấp để tải ảnh lên (hoặc kéo thả vào đây)</p>
+              </>
+            )}
           </div>
         </div>
 
