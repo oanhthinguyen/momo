@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
 import { useMockData } from '../data/useMockData';
-import { Award, TrendingUp } from 'lucide-react';
+import { Award, TrendingUp, ArrowRight } from 'lucide-react';
 
 export default function TopRated() {
   const { allProducts } = useMockData();
@@ -102,6 +102,24 @@ export default function TopRated() {
               />
             </div>
           ))}
+        </div>
+        
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', position: 'relative', zIndex: 10 }}>
+          <Link to="/reviews" className="btn" style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '8px', 
+            padding: '14px 36px', 
+            borderRadius: '30px', 
+            fontWeight: 700, 
+            fontSize: '1.1rem',
+            color: '#fff', 
+            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+            boxShadow: '0 4px 15px rgba(245, 158, 11, 0.3)',
+            textDecoration: 'none'
+          }}>
+            Xem tất cả đánh giá <ArrowRight size={20} />
+          </Link>
         </div>
       </div>
     </section>
