@@ -218,46 +218,61 @@ export default function ReviewDetail() {
               GỢI Ý LỰA CHỌN SẢN PHẨM
             </h3>
             <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '30px', alignItems: 'flex-start', justifyContent: 'center' }}>
-               {/* Left Product */}
-               <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
-                 <img src={data.imageUrl || 'https://via.placeholder.com/200'} alt={data.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
-                 <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{data.title}</h4>
-                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
-                   {data.ingredients.slice(0, 10).map((ing: any, i: number) => {
-                     const color = i < 3 ? '#1d4ed8' : '#e11d48';
-                     return (
-                       <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
-                         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
-                         <span style={{ color: color }}>{ing.name}:</span>
-                         <span style={{ color: color }}>{ing.amount}</span>
-                       </li>
-                     );
-                   })}
-                 </ul>
-               </div>
-               
-               {/* Middle VS */}
-               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem', color: '#111', fontFamily: 'serif', marginTop: '50px' }}>
-                 &amp;
-               </div>
+               {(() => {
+                 const combinedNames = Array.from(new Set([
+                   ...data.ingredients.map((i: any) => i.name),
+                   ...compareData.ingredients.map((i: any) => i.name)
+                 ])).slice(0, 10);
+                 
+                 return (
+                   <>
+                     {/* Left Product */}
+                     <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
+                       <img src={data.imageUrl || 'https://via.placeholder.com/200'} alt={data.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
+                       <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{data.title}</h4>
+                       <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
+                         {combinedNames.map((name: string, i: number) => {
+                           const color = i < 3 ? '#1d4ed8' : '#e11d48';
+                           const found = data.ingredients.find((ing: any) => ing.name === name);
+                           const amount = found ? found.amount : 'Không có';
+                           return (
+                             <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
+                               <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
+                               <span style={{ color: color }}>{name}:</span>
+                               <span style={{ color: color }}>{amount}</span>
+                             </li>
+                           );
+                         })}
+                       </ul>
+                     </div>
+                     
+                     {/* Middle VS */}
+                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem', color: '#111', fontFamily: 'serif', marginTop: '50px' }}>
+                       &amp;
+                     </div>
 
-               {/* Right Product */}
-               <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
-                 <img src={compareData.imageUrl || 'https://via.placeholder.com/200'} alt={compareData.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
-                 <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{compareData.title}</h4>
-                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
-                   {compareData.ingredients.slice(0, 10).map((ing: any, i: number) => {
-                     const color = i < 3 ? '#1d4ed8' : '#e11d48';
-                     return (
-                       <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
-                         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
-                         <span style={{ color: color }}>{ing.name}:</span>
-                         <span style={{ color: color }}>{ing.amount}</span>
-                       </li>
-                     );
-                   })}
-                 </ul>
-               </div>
+                     {/* Right Product */}
+                     <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
+                       <img src={compareData.imageUrl || 'https://via.placeholder.com/200'} alt={compareData.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
+                       <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{compareData.title}</h4>
+                       <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
+                         {combinedNames.map((name: string, i: number) => {
+                           const color = i < 3 ? '#1d4ed8' : '#e11d48';
+                           const found = compareData.ingredients.find((ing: any) => ing.name === name);
+                           const amount = found ? found.amount : 'Không có';
+                           return (
+                             <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
+                               <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
+                               <span style={{ color: color }}>{name}:</span>
+                               <span style={{ color: color }}>{amount}</span>
+                             </li>
+                           );
+                         })}
+                       </ul>
+                     </div>
+                   </>
+                 );
+               })()}
             </div>
           </div>
         )}
