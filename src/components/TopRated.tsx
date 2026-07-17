@@ -94,10 +94,8 @@ export default function TopRated() {
                 summary={review.summary}
                 imageColor={review.imageColor || '#f87171'}
                 imageUrl={review.imageUrl}
+                reviewCount={review.reviewCount}
               />
-              <div style={{ textAlign: 'center', marginTop: '-20px', marginBottom: '16px', color: '#475569', fontSize: '0.95rem', fontWeight: 700, background: '#fff', display: 'inline-block', padding: '4px 16px', borderRadius: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', left: '50%', transform: 'translateX(-50%)', position: 'relative', border: '1px solid #e2e8f0' }}>
-                <span style={{ color: '#f59e0b', marginRight: '4px' }}>★</span> {review.averageRating} ({review.reviewCount} lượt đánh giá)
-              </div>
             </div>
           ))}
         </div>

@@ -11,9 +11,10 @@ interface ReviewCardProps {
   summary: string;
   imageColor: string;
   imageUrl?: string;
+  reviewCount?: number;
 }
 
-export default function ReviewCard({ id, category, title, rating, summary, imageColor, imageUrl }: ReviewCardProps) {
+export default function ReviewCard({ id, category, title, rating, summary, imageColor, imageUrl, reviewCount }: ReviewCardProps) {
   const { t } = useLanguage();
 
   return (
@@ -24,10 +25,16 @@ export default function ReviewCard({ id, category, title, rating, summary, image
       <div className="card-content">
         <span className="card-category">{category}</span>
         <h3 className="card-title">{title}</h3>
-        <div className="card-rating">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={14} fill={i < rating ? "var(--accent)" : "transparent"} color="var(--accent)" />
-          ))}
+        <div className="card-rating" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          {reviewCount !== undefined ? (
+            <span style={{ fontSize: '1rem', fontWeight: 700, color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              ★ {rating} <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 500 }}>({reviewCount} lượt đánh giá)</span>
+            </span>
+          ) : (
+            [...Array(5)].map((_, i) => (
+              <Star key={i} size={14} fill={i < rating ? "var(--accent)" : "transparent"} color="var(--accent)" />
+            ))
+          )}
         </div>
         <p className="card-summary">{summary}</p>
 
