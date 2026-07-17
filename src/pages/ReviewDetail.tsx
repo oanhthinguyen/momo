@@ -1,5 +1,5 @@
 import { SEO } from '../components/SEO';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useMockData } from '../data/useMockData';
