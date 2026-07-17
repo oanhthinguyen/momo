@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
@@ -33,37 +33,50 @@ function ScrollToTop() {
   return null;
 }
 
+function Layout() {
+  return (
+    <>
+      <ScrollToTop />
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/diapers", element: <Diapers /> },
+      { path: "/milk", element: <Milk /> },
+      { path: "/toys", element: <Toys /> },
+      { path: "/search", element: <Search /> },
+      { path: "/write-review", element: <WriteReview /> },
+      { path: "/review/:id", element: <ReviewDetail /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
+      { path: "/privacy", element: <Privacy /> },
+      { path: "/parenting", element: <ParentingTips /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/profile/edit", element: <EditProfile /> },
+      { path: "/admin", element: <Admin /> },
+      { path: "/reviews", element: <AllReviews /> }
+    ]
+  }
+]);
+
 function App() {
   return (
     <LanguageProvider>
-      <Router>
-        <ScrollToTop />
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/diapers" element={<Diapers />} />
-            <Route path="/milk" element={<Milk />} />
-            <Route path="/toys" element={<Toys />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/write-review" element={<WriteReview />} />
-            <Route path="/review/:id" element={<ReviewDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/parenting" element={<ParentingTips />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/edit" element={<EditProfile />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/reviews" element={<AllReviews />} />
-          </Routes>
-
-        </main>
-        <Footer />
-      </Router>
+      <RouterProvider router={router} />
     </LanguageProvider>
   );
 }
