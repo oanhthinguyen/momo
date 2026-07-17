@@ -121,20 +121,7 @@ export default function ReviewDetail() {
         <article className="main-article">
           <p>{data.content}</p>
 
-          {data.ingredients && data.ingredients.length > 0 && (
-            <div className="ingredients-section animate-fade-in" style={{ background: '#f0fdf4', padding: '24px', borderRadius: '12px', border: '1px solid #bbf7d0', marginTop: '32px', marginBottom: '32px' }}>
-              <h3 style={{ color: '#166534', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', fontSize: '1.2rem', marginTop: 0 }}>
-                <CheckCircle2 size={24} color="#166534" /> Bảng Thành Phần Nổi Bật
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px' }}>
-                {data.ingredients.map((ing: string, i: number) => (
-                  <div key={i} style={{ background: 'white', padding: '12px 16px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', fontWeight: 600, color: '#15803d', textAlign: 'center', border: '1px solid #dcfce7' }}>
-                    {ing}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+
           {data.imageUrls && data.imageUrls.length > 0 ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', margin: '32px 0' }}>
               {data.imageUrls.map((url: string, index: number) => (
@@ -178,6 +165,21 @@ export default function ReviewDetail() {
         </div>
 
         {/* Affiliate Links Section */}
+        {data.ingredients && data.ingredients.length > 0 && (
+          <div className="ingredients-section animate-fade-in" style={{ background: '#f0fdf4', padding: '24px', borderRadius: '12px', border: '1px solid #bbf7d0', marginTop: '32px', marginBottom: '32px' }}>
+            <h3 style={{ color: '#166534', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', fontSize: '1.2rem', marginTop: 0 }}>
+              <CheckCircle2 size={24} color="#166534" /> Bảng Thành Phần Nổi Bật
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px' }}>
+              {data.ingredients.map((ing: string, i: number) => (
+                <div key={i} style={{ background: 'white', padding: '12px 16px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', fontWeight: 600, color: '#15803d', textAlign: 'center', border: '1px solid #dcfce7' }}>
+                  {ing}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="affiliate-section">
           <h3 className="affiliate-title"><ShoppingBag size={20} /> {t('where_to_buy')}</h3>
           <div className="affiliate-buttons">
