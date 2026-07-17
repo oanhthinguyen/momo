@@ -105,7 +105,7 @@ export default function TopRated() {
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', position: 'relative', zIndex: 10 }}>
-          <Link to="/reviews" className="btn btn-view-all" style={{ textDecoration: 'none' }}>
+          <Link to="/reviews" className="btn btn-outline" style={{ padding: '12px 36px', fontSize: '1.1rem', fontWeight: 800 }}>
             Xem thêm đánh giá
           </Link>
         </div>
