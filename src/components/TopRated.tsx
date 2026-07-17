@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
 import { useMockData } from '../data/useMockData';
 import { Award, TrendingUp } from 'lucide-react';
@@ -7,6 +7,7 @@ import { Award, TrendingUp } from 'lucide-react';
 export default function TopRated() {
   const { allProducts } = useMockData();
   const [topProducts, setTopProducts] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const approvedReviews = JSON.parse(localStorage.getItem('momo_approved_reviews') || '[]');
@@ -105,9 +106,13 @@ export default function TopRated() {
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', position: 'relative', zIndex: 10 }}>
-          <Link to="/reviews" className="btn btn-outline" style={{ padding: '12px 36px', fontSize: '1.1rem', fontWeight: 800 }}>
+          <button 
+            onClick={() => navigate('/reviews')} 
+            className="btn btn-outline" 
+            style={{ padding: '12px 36px', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
+          >
             Xem thêm đánh giá
-          </Link>
+          </button>
         </div>
       </div>
     </section>
