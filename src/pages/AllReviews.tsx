@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
 import { useMockData } from '../data/useMockData';
 import { SEO } from '../components/SEO';
 
 export default function AllReviews() {
-  const { t } = useLanguage();
   const { allProducts } = useMockData();
   const [approvedReviews, setApprovedReviews] = useState<any[]>([]);
   const [activeFilter, setActiveFilter] = useState('all');
