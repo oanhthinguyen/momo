@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Sparkles, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from './ReviewCard';
 import { useMockData } from '../data/useMockData';
@@ -29,9 +30,14 @@ export default function Categories() {
   return (
     <section id="categories-section" className="categories-section">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">{t('cat_title')}</h2>
-          <p className="section-subtitle">{t('cat_subtitle')}</p>
+        <div className="section-header" style={{ marginBottom: '40px' }}>
+          <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', color: '#b45309', fontSize: '2.5rem' }}>
+            <Sparkles size={36} color="#f59e0b" fill="#f59e0b" /> {t('cat_title')}
+          </h2>
+          <p className="section-subtitle" style={{ fontSize: '1.1rem', color: '#64748b' }}>
+            <MessageCircle size={20} style={{ display: 'inline', marginRight: '8px' }} />
+            {t('cat_subtitle')}
+          </p>
         </div>
         
         <div className="category-grid">
