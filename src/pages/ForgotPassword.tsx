@@ -1,16 +1,34 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { User, KeyRound, ArrowLeft } from 'lucide-react';
+import { User, KeyRound, ArrowLeft, AlertCircle } from 'lucide-react';
 import './Login.css';
 
 export default function ForgotPassword() {
   const { t } = useLanguage();
   const [identifier, setIdentifier] = useState('');
   const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState('');
+
+  const validateIdentifier = (id: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(0|\+84)[3|5|7|8|9][0-9]{8}$/;
+    return emailRegex.test(id) || phoneRegex.test(id);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+
+    if (!identifier) {
+      setError('Vui lòng nhập Email hoặc Số điện thoại');
+      return;
+    }
+    if (!validateIdentifier(identifier)) {
+      setError('Email hoặc Số điện thoại không hợp lệ');
+      return;
+    }
+    
     // TODO: Implement actual password reset logic here
     console.log('Password reset requested for:', identifier);
     setIsSent(true);
@@ -27,6 +45,13 @@ export default function ForgotPassword() {
             <h1>{t('auth_reset_password')}</h1>
             <p>{t('auth_reset_desc')}</p>
           </div>
+
+          {error && (
+            <div className="error-message animate-fade-in">
+              <AlertCircle size={20} />
+              <span>{error}</span>
+            </div>
+          )}
 
           {!isSent ? (
             <form className="auth-form" onSubmit={handleSubmit}>

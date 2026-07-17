@@ -1,4 +1,4 @@
-import { Baby, Search, Globe, ChevronDown, Menu, X, User as UserIcon } from 'lucide-react';
+import { Baby, Search, Globe, ChevronDown, Menu, X, User as UserIcon, LogOut } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
@@ -11,11 +11,14 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [user, setUser] = useState<string | null>(null);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
   const { language, changeLanguage, t } = useLanguage();
   const langDropdownRef = useRef<HTMLDivElement>(null);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,13 +33,18 @@ export default function Navbar() {
     setIsLangDropdownOpen(false);
     setIsSearchOpen(false);
     setIsMobileMenuOpen(false);
+    setIsUserDropdownOpen(false);
+    setUser(localStorage.getItem('user'));
   }, [location]);
 
-  // Click outside để đóng dropdown ngôn ngữ
+  // Click outside để đóng dropdown ngôn ngữ và user
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
         setIsLangDropdownOpen(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setIsUserDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -55,6 +63,13 @@ export default function Navbar() {
       setIsSearchOpen(false);
       setSearchQuery('');
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    setIsUserDropdownOpen(false);
+    navigate('/login');
   };
 
   return (
@@ -117,10 +132,35 @@ export default function Navbar() {
             </form>
           </div>
 
-          <Link to="/login" className="icon-btn login-btn" title={t('nav_login')}>
-            <UserIcon size={20} />
-            <span className="login-text">{t('nav_login')}</span>
-          </Link>
+          {user ? (
+            <div className="user-dropdown-container" ref={userDropdownRef}>
+              <button 
+                className="user-avatar-btn" 
+                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+              >
+                <div className="avatar-circle">
+                  {user.substring(0, 2).toUpperCase()}
+                </div>
+              </button>
+              
+              {isUserDropdownOpen && (
+                <div className="lang-dropdown-menu user-menu">
+                  <Link to="/profile" className="lang-option" onClick={() => setIsUserDropdownOpen(false)}>
+                    <UserIcon size={16} /> {t('nav_profile')}
+                  </Link>
+                  <div className="mobile-nav-divider"></div>
+                  <button className="lang-option" onClick={handleLogout}>
+                    <LogOut size={16} /> Đăng xuất
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/login" className="icon-btn login-btn" title={t('nav_login')}>
+              <UserIcon size={20} />
+              <span className="login-text">{t('nav_login')}</span>
+            </Link>
+          )}
           
           <button 
             className="icon-btn mobile-menu-btn"
@@ -139,9 +179,26 @@ export default function Navbar() {
             <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_milk')}</Link>
             <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_toys')}</Link>
             <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_parenting')}</Link>
-            <div className="mobile-nav-divider"></div>
-            <Link to="/login" className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_login')}</Link>
-            <Link to="/register" className={`nav-link ${location.pathname === '/register' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_register')}</Link>
+            
+            {user ? (
+              <>
+                <div className="mobile-nav-divider"></div>
+                <Link to="/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+                  <UserIcon size={18} style={{ display: 'inline', marginRight: '8px' }} />
+                  {t('nav_profile')}
+                </Link>
+                <button className="nav-link text-left text-danger" onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>
+                  <LogOut size={18} style={{ display: 'inline', marginRight: '8px' }} />
+                  Đăng xuất
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="mobile-nav-divider"></div>
+                <Link to="/login" className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_login')}</Link>
+                <Link to="/register" className={`nav-link ${location.pathname === '/register' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_register')}</Link>
+              </>
+            )}
           </nav>
         </div>
       )}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { User, Mail, Lock, UserPlus } from 'lucide-react';
+import { User, Lock, UserPlus, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import './Login.css'; // Reusing Login CSS for same layout
 
 export default function Register() {
@@ -11,11 +11,38 @@ export default function Register() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+
+  const validateIdentifier = (id: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^(0|\+84)[3|5|7|8|9][0-9]{8}$/;
+    return emailRegex.test(id) || phoneRegex.test(id);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+
+    if (!name.trim()) {
+      setError('Vui lòng nhập họ và tên');
+      return;
+    }
+    if (!identifier) {
+      setError('Vui lòng nhập Email hoặc Số điện thoại');
+      return;
+    }
+    if (!validateIdentifier(identifier)) {
+      setError('Email hoặc Số điện thoại không hợp lệ');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Mật khẩu phải có ít nhất 6 ký tự');
+      return;
+    }
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+      setError('Mật khẩu xác nhận không khớp');
       return;
     }
     // TODO: Implement actual register logic here
@@ -35,6 +62,13 @@ export default function Register() {
             <h1>{t('nav_register')}</h1>
             <p>Tham gia cộng đồng MomoReview</p>
           </div>
+
+          {error && (
+            <div className="error-message animate-fade-in">
+              <AlertCircle size={20} />
+              <span>{error}</span>
+            </div>
+          )}
 
           <form className="auth-form" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -72,13 +106,20 @@ export default function Register() {
               <div className="input-wrapper">
                 <Lock className="input-icon" size={20} />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
                 />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
             </div>
 
@@ -87,13 +128,20 @@ export default function Register() {
               <div className="input-wrapper">
                 <Lock className="input-icon" size={20} />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   required
                 />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
             </div>
 

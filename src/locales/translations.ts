@@ -31,6 +31,8 @@ export const translations = {
     // Auth
     nav_login: 'Đăng nhập',
     nav_register: 'Đăng ký',
+    nav_profile: 'Hồ sơ',
+    nav_edit_profile: 'Chỉnh sửa hồ sơ',
     auth_email_phone: 'Email / Số điện thoại',
     auth_password: 'Mật khẩu',
     auth_forgot: 'Quên mật khẩu?',
@@ -210,6 +212,8 @@ export const translations = {
     // Auth
     nav_login: 'Login',
     nav_register: 'Register',
+    nav_profile: 'Profile',
+    nav_edit_profile: 'Edit Profile',
     auth_email_phone: 'Email / Phone Number',
     auth_password: 'Password',
     auth_forgot: 'Forgot password?',

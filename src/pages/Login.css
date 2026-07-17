@@ -77,7 +77,7 @@
 
 .input-wrapper input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
+  padding: 14px 48px 14px 48px;
   border: 2px solid rgba(255, 126, 179, 0.1);
   border-radius: 12px;
   font-size: 1rem;
@@ -90,6 +90,24 @@
   border-color: var(--primary);
   background: white;
   box-shadow: 0 4px 12px rgba(255, 126, 179, 0.1);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: var(--primary);
 }
 
 .auth-options {
@@ -147,6 +165,33 @@
 
 .auth-footer a:hover {
   color: var(--primary-dark);
+}
+
+.error-message {
+  color: #ef4444; /* red-500 */
+  background-color: #fef2f2; /* red-50 */
+  border: 1px solid #fecaca; /* red-200 */
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-wrapper.error input {
+  border-color: #ef4444;
+}
+
+.input-wrapper.error .input-icon {
+  color: #ef4444;
+}
+
+.input-error-text {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 4px;
 }
 
 @media (max-width: 768px) {
