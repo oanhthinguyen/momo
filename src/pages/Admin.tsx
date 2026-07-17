@@ -14,6 +14,7 @@ interface Review {
   author: string;
   date: string;
   imageUrl: string | null;
+  imageUrls?: string[];
 }
 
 export default function Admin() {
@@ -113,7 +114,13 @@ export default function Admin() {
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>
-                {review.imageUrl && (
+                {review.imageUrls && review.imageUrls.length > 0 ? (
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', margin: '16px 0' }}>
+                    {review.imageUrls.map((url, idx) => (
+                      <img key={idx} src={url} alt={`Attachment ${idx}`} style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border)' }} />
+                    ))}
+                  </div>
+                ) : review.imageUrl && (
                   <div className="review-image">
                     <img src={review.imageUrl} alt="Review attachment" />
                   </div>
@@ -157,7 +164,13 @@ export default function Admin() {
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>
-                {review.imageUrl && (
+                {review.imageUrls && review.imageUrls.length > 0 ? (
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', margin: '16px 0' }}>
+                    {review.imageUrls.map((url, idx) => (
+                      <img key={idx} src={url} alt={`Attachment ${idx}`} style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--border)' }} />
+                    ))}
+                  </div>
+                ) : review.imageUrl && (
                   <div className="review-image">
                     <img src={review.imageUrl} alt="Review attachment" />
                   </div>

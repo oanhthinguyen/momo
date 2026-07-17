@@ -119,7 +119,18 @@ export default function ReviewDetail() {
       <div className="container detail-content glass">
         <article className="main-article">
           <p>{data.content}</p>
-          {data.imageUrl && (
+          {data.imageUrls && data.imageUrls.length > 0 ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', margin: '32px 0' }}>
+              {data.imageUrls.map((url: string, index: number) => (
+                <img 
+                  key={index}
+                  src={url} 
+                  alt={`${data.title} - ảnh ${index + 1}`} 
+                  style={{ width: '100%', height: '300px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }} 
+                />
+              ))}
+            </div>
+          ) : data.imageUrl && (
             <div style={{ textAlign: 'center', margin: '32px 0' }}>
               <img 
                 src={data.imageUrl} 

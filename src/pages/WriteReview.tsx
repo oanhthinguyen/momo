@@ -41,19 +41,22 @@ export default function WriteReview() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
+    if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files);
+      setSelectedFiles(prev => [...prev, ...newFiles]);
+      const newUrls = newFiles.map(f => URL.createObjectURL(f));
+      setPreviewUrls(prev => [...prev, ...newUrls]);
     }
+    // Reset file input so user can select the same file again if they cleared it
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,13 +70,16 @@ export default function WriteReview() {
     const currentUser = localStorage.getItem('user');
     const authorEmail = currentUser || email || 'Anonymous';
 
-    let base64Image = null;
-    if (selectedFile) {
-      base64Image = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(selectedFile);
-      });
+    let base64Images: string[] = [];
+    if (selectedFiles.length > 0) {
+      for (const file of selectedFiles) {
+        const base64 = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(file);
+        });
+        base64Images.push(base64);
+      }
     }
 
     const newReview = {
@@ -86,7 +92,8 @@ export default function WriteReview() {
       summary,
       author: authorEmail,
       date: new Date().toISOString(),
-      imageUrl: base64Image
+      imageUrl: base64Images.length > 0 ? base64Images[0] : null,
+      imageUrls: base64Images
     };
 
     const pendingReviews = JSON.parse(localStorage.getItem('momo_pending_reviews') || '[]');
@@ -234,34 +241,42 @@ export default function WriteReview() {
         </div>
 
         <div className="form-group">
-          <label>Hình ảnh (Tùy chọn)</label>
-          <div className="upload-box" onClick={handleUploadClick} style={{ padding: previewUrl ? '8px' : '40px', overflow: 'hidden' }}>
+          <label>Hình ảnh (Tùy chọn - Có thể chọn nhiều)</label>
+          <div className="upload-box" style={{ padding: previewUrls.length > 0 ? '16px' : '40px', overflow: 'hidden' }}>
             <input 
               type="file" 
+              multiple
               ref={fileInputRef}
               className="wr-file-input"
               accept="image/*"
               onChange={handleFileChange}
             />
-            {previewUrl ? (
-              <div style={{ position: 'relative', width: '100%', height: '220px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img src={previewUrl} alt="Preview" style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '12px' }} />
-                <div 
-                  style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', opacity: 0, transition: 'opacity 0.2s', borderRadius: '12px', cursor: 'pointer', gap: '8px' }} 
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'} 
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
-                >
-                  <UploadCloud size={32} color="white" />
-                  <span style={{ fontWeight: 500 }}>Nhấp để đổi ảnh khác</span>
+            {previewUrls.length > 0 ? (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '12px', width: '100%' }}>
+                {previewUrls.map((url, i) => (
+                  <div key={i} style={{ position: 'relative', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+                    <img src={url} alt={`Preview ${i}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                ))}
+                <div onClick={handleUploadClick} style={{ border: '2px dashed var(--border)', borderRadius: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', aspectRatio: '1', background: 'rgba(255,255,255,0.5)' }}>
+                  <UploadCloud color="var(--primary)" size={24} />
+                  <span style={{ fontSize: '0.8rem', color: 'var(--primary)', marginTop: '4px' }}>Thêm ảnh</span>
                 </div>
               </div>
             ) : (
-              <>
+              <div onClick={handleUploadClick} style={{ cursor: 'pointer', width: '100%' }}>
                 <UploadCloud size={32} color="var(--text-light)" />
-                <p>Nhấp để tải ảnh lên (hoặc kéo thả vào đây)</p>
-              </>
+                <p>Nhấp để tải ảnh lên (hoặc kéo thả nhiều ảnh vào đây)</p>
+              </div>
             )}
           </div>
+          {previewUrls.length > 0 && (
+            <div style={{ textAlign: 'right', marginTop: '8px' }}>
+              <button type="button" onClick={() => { setSelectedFiles([]); setPreviewUrls([]); }} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500 }}>
+                Xóa tất cả ảnh
+              </button>
+            </div>
+          )}
         </div>
 
         <button type="submit" className="btn btn-primary submit-btn">
