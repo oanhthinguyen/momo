@@ -79,6 +79,28 @@ export default function ReviewDetail() {
     }
   }
 
+  let compareData: any = null;
+  if (data && data.ingredients && data.ingredients.length > 0) {
+    const mockDb = mockReviewDetails[language as keyof typeof mockReviewDetails] as any;
+    const allMock = Object.entries(mockDb || {});
+    const otherProduct = allMock.find(([k, v]: [string, any]) => 
+      (v.category?.includes('Sữa') || v.category?.includes('Stage')) && 
+      v.title !== data.title && 
+      v.ingredients
+    );
+    if (otherProduct) {
+      const [otherId, otherData] = otherProduct;
+      compareData = { ...otherData, id: parseInt(otherId) };
+      const p = allProducts.find(prod => prod.id === parseInt(otherId));
+      if (p) {
+        compareData.imageUrl = p.imageUrl;
+      }
+      if (typeof compareData.ingredients === 'string') {
+        compareData.ingredients = compareData.ingredients.split(',').map((s: string) => ({ name: s.trim(), amount: 'Có' })).filter((i: any) => i.name);
+      }
+    }
+  }
+
   if (!data) {
     return (
       <div className="page-transition container review-detail-not-found">
@@ -190,50 +212,50 @@ export default function ReviewDetail() {
         )}
 
         {/* Comparison Suggestion Section */}
-        {data.ingredients && data.ingredients.length > 0 && (
+        {data.ingredients && data.ingredients.length > 0 && compareData && (
           <div className="comparison-suggestion animate-fade-in" style={{ background: '#fff', padding: '32px', borderRadius: '16px', boxShadow: 'var(--shadow-md)', marginBottom: '32px' }}>
-            <h3 style={{ textAlign: 'center', color: 'var(--primary)', marginBottom: '24px', textTransform: 'uppercase', fontSize: '1.4rem' }}>
-              Gợi ý so sánh
+            <h3 style={{ textAlign: 'center', color: '#16a34a', marginBottom: '32px', textTransform: 'uppercase', fontSize: '2.5rem', fontWeight: 900 }}>
+              SO SÁNH
             </h3>
-            <p style={{ textAlign: 'center', color: '#64748b', marginBottom: '24px' }}>
-              Bạn đang phân vân? Hãy xem nhanh so sánh giữa <strong>{data.title}</strong> và một sản phẩm cùng loại:
-            </p>
-            <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '20px', alignItems: 'stretch' }}>
-               <div style={{ flex: 1, textAlign: 'center', padding: '20px', borderRadius: '12px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
-                 <h4 style={{ color: '#1d4ed8', marginBottom: '16px', fontSize: '1.1rem' }}>{data.title}</h4>
-                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                   {data.ingredients.slice(0, 4).map((ing: any, i: number) => (
-                     <li key={i} style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #cbd5e1', paddingBottom: '4px' }}>
-                       <strong>{ing.name}:</strong> {ing.amount}
-                     </li>
-                   ))}
+            <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '30px', alignItems: 'flex-start', justifyContent: 'center' }}>
+               {/* Left Product */}
+               <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
+                 <img src={data.imageUrl || 'https://via.placeholder.com/200'} alt={data.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
+                   {data.ingredients.slice(0, 10).map((ing: any, i: number) => {
+                     const color = i < 3 ? '#1d4ed8' : '#e11d48';
+                     return (
+                       <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
+                         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
+                         <span style={{ color: color }}>{ing.name}:</span>
+                         <span style={{ color: color }}>{ing.amount}</span>
+                       </li>
+                     );
+                   })}
                  </ul>
                </div>
                
-               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '2rem', color: '#cbd5e1', fontStyle: 'italic' }}>
-                 VS
+               {/* Middle VS */}
+               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem', color: '#111', fontFamily: 'serif', marginTop: '50px' }}>
+                 &amp;
                </div>
 
-               <div style={{ flex: 1, textAlign: 'center', padding: '20px', borderRadius: '12px', background: '#fef2f2', border: '1px solid #fecaca' }}>
-                 <h4 style={{ color: '#e11d48', marginBottom: '16px', fontSize: '1.1rem' }}>Sản phẩm cùng phân khúc</h4>
-                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
-                     <strong>Năng Lượng:</strong> Tương đương
-                   </li>
-                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
-                     <strong>DHA:</strong> Cao hơn 15%
-                   </li>
-                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
-                     <strong>Hương vị:</strong> Nhạt thanh hơn
-                   </li>
-                   <li style={{ color: '#475569', fontSize: '0.95rem', marginBottom: '8px', borderBottom: '1px dashed #fca5a5', paddingBottom: '4px' }}>
-                     <strong>Giá thành:</strong> Rẻ hơn 50.000đ
-                   </li>
+               {/* Right Product */}
+               <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
+                 <img src={compareData.imageUrl || 'https://via.placeholder.com/200'} alt={compareData.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
+                   {compareData.ingredients.slice(0, 10).map((ing: any, i: number) => {
+                     const color = i < 3 ? '#1d4ed8' : '#e11d48';
+                     return (
+                       <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: 800, marginBottom: '10px', justifyContent: 'flex-start' }}>
+                         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: color, flexShrink: 0 }}></div>
+                         <span style={{ color: color }}>{ing.name}:</span>
+                         <span style={{ color: color }}>{ing.amount}</span>
+                       </li>
+                     );
+                   })}
                  </ul>
                </div>
-            </div>
-            <div style={{ textAlign: 'center', marginTop: '32px' }}>
-              <Link to="/reviews" className="btn btn-outline">Xem toàn bộ bài so sánh sữa</Link>
             </div>
           </div>
         )}
