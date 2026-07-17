@@ -16,7 +16,8 @@ export default function TopRated() {
     
     // Process mock products first
     allProducts.forEach(p => {
-      productStats[p.title] = { product: p, count: Math.floor(Math.random() * 50) + 10, totalRating: p.rating ? p.rating * (Math.floor(Math.random() * 50) + 10) : 5 }; // Mock some counts for demo
+      const mockCount = (p.id * 7) % 50 + 10; // Deterministic pseudo-random based on id
+      productStats[p.title] = { product: p, count: mockCount, totalRating: p.rating ? p.rating * mockCount : 5 * mockCount };
     });
     
     // Process user reviews
