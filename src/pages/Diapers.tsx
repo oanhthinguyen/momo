@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
@@ -14,7 +15,8 @@ export default function Diapers() {
   const filteredList = filter === 'all' ? diapersList : diapersList.filter(d => d.type === filter);
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '120px', paddingBottom: '80px', minHeight: '80vh' }}>
+    <div className="page-transition container category-page-container">
+      <SEO title="Đánh Giá Bỉm" description="Review chi tiết các loại bỉm (tã dán, tã quần) phổ biến và an toàn nhất hiện nay cho bé." />
       <div className="section-header">
         <h1 className="section-title">{t('diaper_title')}</h1>
         <p className="section-subtitle">{t('diaper_desc')}</p>

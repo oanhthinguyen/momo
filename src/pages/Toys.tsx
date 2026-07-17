@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
@@ -14,7 +15,8 @@ export default function Toys() {
   const filteredList = filter === 'all' ? toysList : toysList.filter(t => t.type === filter);
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '120px', paddingBottom: '80px', minHeight: '80vh' }}>
+    <div className="page-transition container category-page-container">
+      <SEO title="Đồ Chơi Giáo Dục" description="Đánh giá đồ chơi giáo dục, đồ chơi phát triển kỹ năng an toàn và bổ ích cho bé." />
       <div className="section-header">
         <h1 className="section-title">{t('toy_title')}</h1>
         <p className="section-subtitle">{t('toy_desc')}</p>

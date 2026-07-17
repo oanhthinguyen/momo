@@ -5,6 +5,36 @@
   margin: 0 auto;
 }
 
+.pt-container {
+  padding-top: 140px;
+  padding-bottom: 80px;
+  min-height: 80vh;
+}
+
+/* Nutrition Classes */
+.pt-nutri-orange { border-color: rgba(251, 146, 60, 0.3); }
+.pt-nutri-orange .age-badge { background: #f97316; }
+.pt-nutri-orange h3 { color: #ea580c; }
+
+.pt-nutri-yellow { border-color: rgba(234, 179, 8, 0.3); }
+.pt-nutri-yellow .age-badge { background: #eab308; }
+.pt-nutri-yellow h3 { color: #ca8a04; }
+
+.pt-nutri-green { border-color: rgba(16, 185, 129, 0.3); }
+.pt-nutri-green .age-badge { background: #10b981; }
+.pt-nutri-green h3 { color: #059669; }
+
+.nutri-icon {
+  display: inline;
+  margin-right: 8px;
+  vertical-align: text-bottom;
+}
+
+.nutri-desc {
+  color: var(--text);
+  line-height: 1.7;
+}
+
 .pt-header {
   text-align: center;
   margin-bottom: 60px;

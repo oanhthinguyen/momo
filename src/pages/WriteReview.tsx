@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { SEO } from '../components/SEO';
+import { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { CheckCircle2, Star, UploadCloud, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -11,8 +12,29 @@ export default function WriteReview() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    // Check login status
+    if (localStorage.getItem('user')) {
+      setIsLoggedIn(true);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleUploadClick = () => {
@@ -35,7 +57,7 @@ export default function WriteReview() {
       <div className="page-transition container wr-success-container">
         <CheckCircle2 size={80} color="var(--success)" className="success-icon" />
         <h2>{t('wr_success')}</h2>
-        <Link to="/" className="btn btn-primary" style={{ marginTop: '24px' }}>
+        <Link to="/" className="btn btn-primary wr-return-btn">
           {t('search_results_for') === 'Search results for' ? 'Return to Home' : 'Về Trang Chủ'}
         </Link>
       </div>
@@ -44,18 +66,26 @@ export default function WriteReview() {
 
   return (
     <div className="page-transition container wr-container">
+      <SEO title="Viết Đánh Giá" description="Chia sẻ trải nghiệm và đánh giá của bạn về các sản phẩm mẹ và bé với cộng đồng Momo Review." />
       <div className="wr-header">
         <h1>{t('wr_title')}</h1>
         <p>{t('wr_subtitle')}</p>
       </div>
 
       <form className="wr-form glass animate-fade-in" onSubmit={handleSubmit}>
+        {!isLoggedIn && (
+          <div className="form-group">
+            <label>{t('auth_email_phone') || 'Email / Số điện thoại'}</label>
+            <input type="text" placeholder="Để chúng tôi có thể liên hệ khi cần thiết..." required />
+          </div>
+        )}
+
         <div className="form-group">
           <label>{t('wr_prod_name')}</label>
           <input type="text" placeholder={t('wr_prod_ph')} required />
         </div>
 
-        <div className="form-group custom-select-wrapper">
+        <div className="form-group custom-select-wrapper" ref={dropdownRef}>
           <label>{t('wr_category')}</label>
           <div 
             className={`custom-select ${isDropdownOpen ? 'open' : ''}`}
@@ -136,14 +166,14 @@ export default function WriteReview() {
             <input 
               type="file" 
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              className="wr-file-input"
               accept="image/*"
               onChange={handleFileChange}
             />
             <UploadCloud size={32} color={selectedFile ? "var(--primary)" : "var(--text-light)"} />
             <p>
               {selectedFile ? (
-                <strong style={{ color: 'var(--primary)' }}>Đã chọn: {selectedFile.name}</strong>
+                <strong className="wr-file-selected">Đã chọn: {selectedFile.name}</strong>
               ) : (
                 'Nhấp để tải ảnh lên (hoặc kéo thả vào đây)'
               )}

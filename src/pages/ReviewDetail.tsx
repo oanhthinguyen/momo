@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -46,9 +47,9 @@ export default function ReviewDetail() {
 
   if (!data) {
     return (
-      <div className="page-transition container" style={{ paddingTop: '120px', minHeight: '80vh', textAlign: 'center' }}>
+      <div className="page-transition container review-detail-not-found">
         <h2>{language === 'vi' ? 'Bài viết không tồn tại' : 'Article not found'}</h2>
-        <button className="btn btn-outline" onClick={() => navigate(-1)} style={{ marginTop: '20px' }}>
+        <button className="btn btn-outline review-detail-back-btn" onClick={() => navigate(-1)}>
           <ArrowLeft size={16} /> {language === 'vi' ? 'Quay lại' : 'Go Back'}
         </button>
       </div>
@@ -57,14 +58,17 @@ export default function ReviewDetail() {
 
   return (
     <div className="page-transition review-detail-page">
+      <SEO 
+        title={data.title} 
+        description={data.content.substring(0, 150) + '...'} 
+        image={data.imageUrl}
+        type="article"
+      />
       <div 
         className="detail-banner" 
         style={{ 
           backgroundColor: data.imageColor,
           backgroundImage: data.imageUrl ? `url(${data.imageUrl})` : 'none',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundBlendMode: 'overlay'
         }}
       >
         <div className="container banner-content">

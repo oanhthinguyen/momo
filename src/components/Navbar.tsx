@@ -1,4 +1,4 @@
-import { Baby, Search, Globe, ChevronDown, Menu, X } from 'lucide-react';
+import { Baby, Search, Globe, ChevronDown, Menu, X, User as UserIcon } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
@@ -116,6 +116,11 @@ export default function Navbar() {
               </button>
             </form>
           </div>
+
+          <Link to="/login" className="icon-btn login-btn" title={t('nav_login')}>
+            <UserIcon size={20} />
+            <span className="login-text">{t('nav_login')}</span>
+          </Link>
           
           <button 
             className="icon-btn mobile-menu-btn"
@@ -134,6 +139,9 @@ export default function Navbar() {
             <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_milk')}</Link>
             <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_toys')}</Link>
             <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_parenting')}</Link>
+            <div className="mobile-nav-divider"></div>
+            <Link to="/login" className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_login')}</Link>
+            <Link to="/register" className={`nav-link ${location.pathname === '/register' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_register')}</Link>
           </nav>
         </div>
       )}

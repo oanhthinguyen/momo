@@ -28,6 +28,21 @@ export const translations = {
     search_results_for: 'Kết quả tìm kiếm cho',
     no_results: 'Rất tiếc, không tìm thấy bài viết nào phù hợp với từ khóa này.',
     
+    // Auth
+    nav_login: 'Đăng nhập',
+    nav_register: 'Đăng ký',
+    auth_email_phone: 'Email / Số điện thoại',
+    auth_password: 'Mật khẩu',
+    auth_forgot: 'Quên mật khẩu?',
+    auth_no_account: 'Chưa có tài khoản?',
+    auth_has_account: 'Đã có tài khoản?',
+    auth_fullname: 'Họ và tên',
+    auth_confirm_password: 'Xác nhận mật khẩu',
+    auth_reset_password: 'Khôi phục mật khẩu',
+    auth_reset_desc: 'Nhập email hoặc số điện thoại của bạn, chúng tôi sẽ gửi hướng dẫn khôi phục mật khẩu.',
+    auth_send_link: 'Gửi yêu cầu',
+    auth_back_to_login: 'Quay lại đăng nhập',
+    
     // Write Review
     wr_title: 'Viết Đánh Giá Của Bạn',
     wr_subtitle: 'Chia sẻ trải nghiệm thực tế của bạn để giúp các mẹ bỉm sữa khác có thêm thông tin hữu ích nhé.',
@@ -191,6 +206,21 @@ export const translations = {
     search_placeholder: 'Search reviews (e.g., Merries, Milk)...',
     search_results_for: 'Search results for',
     no_results: 'Sorry, we couldn\'t find any articles matching this keyword.',
+
+    // Auth
+    nav_login: 'Login',
+    nav_register: 'Register',
+    auth_email_phone: 'Email / Phone Number',
+    auth_password: 'Password',
+    auth_forgot: 'Forgot password?',
+    auth_no_account: 'Don\'t have an account?',
+    auth_has_account: 'Already have an account?',
+    auth_fullname: 'Full Name',
+    auth_confirm_password: 'Confirm Password',
+    auth_reset_password: 'Reset Password',
+    auth_reset_desc: 'Enter your email or phone number and we will send you instructions to reset your password.',
+    auth_send_link: 'Send Reset Link',
+    auth_back_to_login: 'Back to Login',
 
     // Write Review
     wr_title: 'Write Your Review',

@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
@@ -14,7 +15,8 @@ export default function Milk() {
   const filteredList = filter === 'all' ? milkList : milkList.filter(m => m.type === filter);
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '120px', paddingBottom: '80px', minHeight: '80vh' }}>
+    <div className="page-transition container category-page-container">
+      <SEO title="Đánh Giá Sữa" description="Review các loại sữa bột, sữa công thức tốt nhất theo từng giai đoạn phát triển của bé." />
       <div className="section-header">
         <h1 className="section-title">{t('milk_title')}</h1>
         <p className="section-subtitle">{t('milk_desc')}</p>

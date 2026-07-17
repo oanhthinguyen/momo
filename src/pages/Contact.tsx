@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Mail, Phone } from 'lucide-react';
@@ -17,12 +18,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '140px', paddingBottom: '80px', minHeight: '70vh', maxWidth: '1000px' }}>
-      <div className="glass" style={{ padding: '40px', borderRadius: '24px' }}>
-        <h1 style={{ marginBottom: '16px', fontSize: '2.5rem', color: 'var(--text)', textAlign: 'center' }}>
+    <div className="page-transition container contact-page-container">
+      <SEO title="Liên Hệ" description="Liên hệ với Momo Review để gửi ý kiến đóng góp, phản hồi hoặc hợp tác." />
+      <div className="glass contact-glass-box">
+        <h1 className="contact-title">
           {t('contact_title')}
         </h1>
-        <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-light)', textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
+        <p className="contact-subtitle">
           {t('contact_content')}
         </p>
 
@@ -78,7 +80,7 @@ export default function Contact() {
                   <textarea id="message" required placeholder="Nhập tin nhắn của bạn ở đây..."></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary" style={{ marginTop: '8px' }}>
+                <button type="submit" className="btn btn-primary contact-submit-btn">
                   {t('contact_form_submit')}
                 </button>
               </>

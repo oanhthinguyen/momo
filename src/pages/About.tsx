@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import babyImage from '../assets/baby.jpg';
 import './About.css';
@@ -6,7 +7,8 @@ export default function About() {
   const { t } = useLanguage();
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '140px', paddingBottom: '100px', minHeight: '70vh', maxWidth: '1100px' }}>
+    <div className="page-transition container about-page-container">
+      <SEO title="Giới Thiệu" description="Tìm hiểu về Momo Review - Sứ mệnh và cam kết mang lại những đánh giá trung thực nhất cho cộng đồng bỉm sữa." />
       <div className="about-container">
         <div className="about-header">
           <h1 className="about-title">{t('about_title')}</h1>

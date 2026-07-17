@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import ReviewCard from '../components/ReviewCard';
@@ -20,10 +21,11 @@ export default function Search() {
   });
 
   return (
-    <div className="page-transition container" style={{ paddingTop: '120px', paddingBottom: '80px', minHeight: '80vh' }}>
+    <div className="page-transition container category-page-container">
+      <SEO title={`Kết quả tìm kiếm cho "${query}"`} description={`Tìm thấy ${filteredList.length} kết quả phù hợp với từ khóa "${query}".`} />
       <div className="section-header">
         <h1 className="section-title">
-          {t('search_results_for')} "<span style={{ color: 'var(--primary)' }}>{query}</span>"
+          {t('search_results_for')} "<span className="search-query-highlight">{query}</span>"
         </h1>
         <p className="section-subtitle">
           {filteredList.length > 0 

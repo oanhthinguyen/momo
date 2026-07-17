@@ -1,3 +1,4 @@
+import { SEO } from '../components/SEO';
 import { useLanguage } from '../context/LanguageContext';
 import { Hospital, MapPin, CheckCircle, AlertTriangle, Utensils, ChefHat, Info, Sparkles } from 'lucide-react';
 import './ParentingTips.css';
@@ -7,6 +8,7 @@ export default function ParentingTips() {
 
   return (
     <div className="page-transition container pt-container">
+      <SEO title="Mẹo Nuôi Con" description="Cẩm nang chăm sóc bé, dinh dưỡng, cách làm đồ ăn dặm và danh sách các phòng khám uy tín." />
       {/* Header */}
       <div className="pt-header">
         <h1 className="pt-title">{t('pt_title')}</h1>
@@ -72,24 +74,24 @@ export default function ParentingTips() {
         <h2 className="section-heading">{t('pt_nutrition_title')}</h2>
         <div className="pt-age-grid">
           {/* 0-6 Months */}
-          <div className="pt-age-card glass" style={{ borderColor: 'rgba(251, 146, 60, 0.3)' }}>
-            <div className="age-badge" style={{ background: '#f97316' }}>0-6T</div>
-            <h3 style={{ color: '#ea580c' }}><Utensils size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }}/> {t('pt_nutri_0_6_title')}</h3>
-            <p style={{ color: 'var(--text)', lineHeight: '1.7' }}>{t('pt_nutri_0_6_desc')}</p>
+          <div className="pt-age-card glass pt-nutri-orange">
+            <div className="age-badge">0-6T</div>
+            <h3><Utensils size={20} className="nutri-icon"/> {t('pt_nutri_0_6_title')}</h3>
+            <p className="nutri-desc">{t('pt_nutri_0_6_desc')}</p>
           </div>
 
           {/* 6-12 Months */}
-          <div className="pt-age-card glass" style={{ borderColor: 'rgba(234, 179, 8, 0.3)' }}>
-            <div className="age-badge" style={{ background: '#eab308' }}>6-12T</div>
-            <h3 style={{ color: '#ca8a04' }}><Utensils size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }}/> {t('pt_nutri_6_12_title')}</h3>
-            <p style={{ color: 'var(--text)', lineHeight: '1.7' }}>{t('pt_nutri_6_12_desc')}</p>
+          <div className="pt-age-card glass pt-nutri-yellow">
+            <div className="age-badge">6-12T</div>
+            <h3><Utensils size={20} className="nutri-icon"/> {t('pt_nutri_6_12_title')}</h3>
+            <p className="nutri-desc">{t('pt_nutri_6_12_desc')}</p>
           </div>
 
           {/* 1-3 Years */}
-          <div className="pt-age-card glass" style={{ borderColor: 'rgba(16, 185, 129, 0.3)' }}>
-            <div className="age-badge" style={{ background: '#10b981' }}>1-3Y</div>
-            <h3 style={{ color: '#059669' }}><Utensils size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }}/> {t('pt_nutri_1_3_title')}</h3>
-            <p style={{ color: 'var(--text)', lineHeight: '1.7' }}>{t('pt_nutri_1_3_desc')}</p>
+          <div className="pt-age-card glass pt-nutri-green">
+            <div className="age-badge">1-3Y</div>
+            <h3><Utensils size={20} className="nutri-icon"/> {t('pt_nutri_1_3_title')}</h3>
+            <p className="nutri-desc">{t('pt_nutri_1_3_desc')}</p>
           </div>
         </div>
       </div>

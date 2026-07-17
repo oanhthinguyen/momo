@@ -2,6 +2,20 @@
   padding-bottom: 80px;
 }
 
+.review-detail-page {
+  min-height: 100vh;
+}
+
+.review-detail-not-found {
+  padding-top: 180px;
+  padding-bottom: 120px;
+  text-align: center;
+}
+
+.review-detail-back-btn {
+  margin-top: 20px;
+}
+
 .detail-banner {
   padding: 140px 0 80px;
   position: relative;
@@ -69,6 +83,10 @@
   background: white;
   box-shadow: var(--shadow-lg);
   position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
   z-index: 10;
 }
 
