@@ -2,6 +2,7 @@ import { SEO } from '../components/SEO';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useMockData } from '../data/useMockData';
 
 import './ReviewDetail.css';
 
@@ -41,9 +42,34 @@ export default function ReviewDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
+  const { allProducts } = useMockData();
 
-  const idNum = parseInt(id || '0');
-  const data = (mockReviewDetails[language] as any)[idNum];
+  let data: any = null;
+
+  // 1. Check local storage for newly approved reviews
+  const approvedReviews = JSON.parse(localStorage.getItem('momo_approved_reviews') || '[]');
+  const localReview = approvedReviews.find((r: any) => r.id === id || r.id === parseInt(id || '0'));
+  
+  if (localReview) {
+    data = { ...localReview };
+    data.date = new Date(localReview.date).toLocaleDateString('vi-VN');
+    data.pros = localReview.pros ? localReview.pros.split('\n') : ['Sản phẩm tốt, đáng mua.'];
+    data.cons = localReview.cons ? localReview.cons.split('\n') : ['Chưa thấy nhược điểm nào đáng kể.'];
+    data.content = localReview.summary;
+    data.title = localReview.productName || localReview.title;
+    data.author = localReview.author ? localReview.author.split('@')[0] : 'Ẩn danh';
+  } else {
+    // 2. Check mock data
+    const idNum = parseInt(id || '0');
+    const mockData = (mockReviewDetails[language] as any)[idNum];
+    if (mockData) {
+      data = { ...mockData };
+      const product = allProducts.find(p => p.id === idNum);
+      if (product) {
+        data.imageUrl = product.imageUrl;
+      }
+    }
+  }
 
   if (!data) {
     return (
@@ -94,6 +120,15 @@ export default function ReviewDetail() {
       <div className="container detail-content glass">
         <article className="main-article">
           <p>{data.content}</p>
+          {data.imageUrl && (
+            <div style={{ textAlign: 'center', margin: '32px 0' }}>
+              <img 
+                src={data.imageUrl} 
+                alt={data.title} 
+                style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '12px', objectFit: 'contain', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }} 
+              />
+            </div>
+          )}
         </article>
 
         <div className="pros-cons-section">
