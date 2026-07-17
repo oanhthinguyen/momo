@@ -18,6 +18,7 @@ export default function WriteReview() {
   const [pros, setPros] = useState('');
   const [cons, setCons] = useState('');
   const [summary, setSummary] = useState('');
+  const [ingredients, setIngredients] = useState('');
   const [email, setEmail] = useState('');
   
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -90,6 +91,7 @@ export default function WriteReview() {
       pros,
       cons,
       summary,
+      ingredients: selectedCategory === 'milk' ? ingredients : '',
       author: authorEmail,
       date: new Date().toISOString(),
       imageUrl: base64Images.length > 0 ? base64Images[0] : null,
@@ -205,6 +207,18 @@ export default function WriteReview() {
             )}
           </div>
         </div>
+
+        {selectedCategory === 'milk' && (
+          <div className="form-group animate-fade-in">
+            <label>Thành phần nổi bật (Dành riêng cho Sữa)</label>
+            <textarea 
+              placeholder="Ví dụ: DHA, ARA, Canxi, Sữa non Colostrum... (Mỗi thành phần cách nhau bởi dấu phẩy)" 
+              rows={2} 
+              value={ingredients} 
+              onChange={(e) => setIngredients(e.target.value)} 
+            ></textarea>
+          </div>
+        )}
 
         <div className="form-group">
           <label>{t('wr_rating')}</label>

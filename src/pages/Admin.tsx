@@ -11,6 +11,7 @@ interface Review {
   pros: string;
   cons: string;
   summary: string;
+  ingredients?: string;
   author: string;
   date: string;
   imageUrl: string | null;
@@ -112,6 +113,9 @@ export default function Admin() {
                 <div className="review-details">
                   <p><strong>Ưu điểm:</strong> {review.pros}</p>
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
+                  {review.category === 'milk' && review.ingredients && (
+                    <p><strong>Thành phần:</strong> {review.ingredients}</p>
+                  )}
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>
                 {review.imageUrls && review.imageUrls.length > 0 ? (
@@ -162,6 +166,9 @@ export default function Admin() {
                 <div className="review-details">
                   <p><strong>Ưu điểm:</strong> {review.pros}</p>
                   <p><strong>Nhược điểm:</strong> {review.cons}</p>
+                  {review.category === 'milk' && review.ingredients && (
+                    <p><strong>Thành phần:</strong> {review.ingredients}</p>
+                  )}
                   <p><strong>Tóm tắt:</strong> {review.summary}</p>
                 </div>
                 {review.imageUrls && review.imageUrls.length > 0 ? (
