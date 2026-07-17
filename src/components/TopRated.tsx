@@ -105,20 +105,7 @@ export default function TopRated() {
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', position: 'relative', zIndex: 10 }}>
-          <Link to="/reviews" className="btn" style={{ 
-            display: 'inline-flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '12px 36px', 
-            borderRadius: '40px', 
-            fontWeight: 800, 
-            fontSize: '1.1rem',
-            color: 'var(--primary)', 
-            backgroundColor: 'transparent',
-            border: '2px solid var(--primary)',
-            transition: 'all 0.3s ease',
-            textDecoration: 'none'
-          }}>
+          <Link to="/reviews" className="btn btn-view-all" style={{ textDecoration: 'none' }}>
             Xem thêm đánh giá
           </Link>
         </div>
