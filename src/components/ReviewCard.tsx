@@ -27,9 +27,12 @@ export default function ReviewCard({ id, category, title, rating, summary, image
         <h3 className="card-title">{title}</h3>
         <div className="card-rating" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           {reviewCount !== undefined ? (
-            <span style={{ fontSize: '1rem', fontWeight: 700, color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              ★ {rating} <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 500 }}>({reviewCount} lượt đánh giá)</span>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={14} fill={i < Math.round(rating) ? "var(--accent)" : "transparent"} color="var(--accent)" />
+              ))}
+              <span style={{ color: '#64748b', fontSize: '0.85rem', fontWeight: 500, marginLeft: '6px' }}>({reviewCount} lượt đánh giá)</span>
+            </div>
           ) : (
             [...Array(5)].map((_, i) => (
               <Star key={i} size={14} fill={i < rating ? "var(--accent)" : "transparent"} color="var(--accent)" />
