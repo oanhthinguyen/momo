@@ -1,22 +1,16 @@
 import { ArrowRight, Star } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import babyImg from '../assets/baby.jpg';
 import './Hero.css';
 
 export default function Hero() {
   const { t } = useLanguage();
-  const navigate = useNavigate();
 
   const handleExploreClick = () => {
     const el = document.getElementById('categories-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
-
-  const handleReviewClick = () => {
-    navigate('/write-review');
   };
 
   return (
@@ -36,11 +30,11 @@ export default function Hero() {
           </p>
           <div className="hero-actions">
             <button className="btn btn-primary" onClick={handleExploreClick}>
-              {t('btn_explore')} <ArrowRight size={20} />
+              Khám Phá Ngay <ArrowRight size={20} />
             </button>
-            <button className="btn btn-outline" onClick={handleReviewClick}>
-              {t('btn_review')}
-            </button>
+            <a href="/write-review" className="btn btn-outline">
+              Viết Đánh Giá
+            </a>
           </div>
         </div>
         <div className="hero-image-wrapper">

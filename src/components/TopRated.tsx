@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import ReviewCard from './ReviewCard';
 import { useMockData } from '../data/useMockData';
 import { Award, TrendingUp } from 'lucide-react';
@@ -105,13 +104,13 @@ export default function TopRated() {
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '48px', position: 'relative', zIndex: 9999, pointerEvents: 'auto' }}>
-          <Link 
-            to="/reviews" 
+          <a 
+            href="/reviews" 
             className="btn btn-outline" 
-            style={{ padding: '12px 36px', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer' }}
+            style={{ padding: '12px 36px', fontSize: '1.1rem', fontWeight: 800, cursor: 'pointer', textDecoration: 'none' }}
           >
             Xem thêm đánh giá
-          </Link>
+          </a>
         </div>
       </div>
     </section>
