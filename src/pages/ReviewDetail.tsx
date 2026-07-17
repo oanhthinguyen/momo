@@ -215,12 +215,13 @@ export default function ReviewDetail() {
         {data.ingredients && data.ingredients.length > 0 && compareData && (
           <div className="comparison-suggestion animate-fade-in" style={{ background: '#fff', padding: '32px', borderRadius: '16px', boxShadow: 'var(--shadow-md)', marginBottom: '32px' }}>
             <h3 style={{ textAlign: 'center', color: '#16a34a', marginBottom: '32px', textTransform: 'uppercase', fontSize: '2.5rem', fontWeight: 900 }}>
-              SO SÁNH
+              GỢI Ý LỰA CHỌN SẢN PHẨM
             </h3>
             <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '30px', alignItems: 'flex-start', justifyContent: 'center' }}>
                {/* Left Product */}
                <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
-                 <img src={data.imageUrl || 'https://via.placeholder.com/200'} alt={data.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+                 <img src={data.imageUrl || 'https://via.placeholder.com/200'} alt={data.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
+                 <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{data.title}</h4>
                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
                    {data.ingredients.slice(0, 10).map((ing: any, i: number) => {
                      const color = i < 3 ? '#1d4ed8' : '#e11d48';
@@ -242,7 +243,8 @@ export default function ReviewDetail() {
 
                {/* Right Product */}
                <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
-                 <img src={compareData.imageUrl || 'https://via.placeholder.com/200'} alt={compareData.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '24px' }} />
+                 <img src={compareData.imageUrl || 'https://via.placeholder.com/200'} alt={compareData.title} style={{ width: '100%', height: '220px', objectFit: 'contain', marginBottom: '16px' }} />
+                 <h4 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '24px', fontWeight: 800, textAlign: 'center', lineHeight: '1.4', padding: '0 16px' }}>{compareData.title}</h4>
                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 auto', maxWidth: '250px' }}>
                    {compareData.ingredients.slice(0, 10).map((ing: any, i: number) => {
                      const color = i < 3 ? '#1d4ed8' : '#e11d48';
