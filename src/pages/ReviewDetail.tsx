@@ -1,5 +1,5 @@
 import { SEO } from '../components/SEO';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useMockData } from '../data/useMockData';
@@ -83,14 +83,14 @@ export default function ReviewDetail() {
   if (data && data.ingredients && data.ingredients.length > 0) {
     const mockDb = mockReviewDetails[language as keyof typeof mockReviewDetails] as any;
     const allMock = Object.entries(mockDb || {});
-    const otherProduct = allMock.find(([k, v]: [string, any]) => 
+    const otherProduct = allMock.find(([_k, v]: [string, any]) => 
       (v.category?.includes('Sữa') || v.category?.includes('Stage')) && 
       v.title !== data.title && 
       v.ingredients
     );
     if (otherProduct) {
       const [otherId, otherData] = otherProduct;
-      compareData = { ...otherData, id: parseInt(otherId) };
+      compareData = { ...(otherData as object), id: parseInt(otherId) };
       const p = allProducts.find(prod => prod.id === parseInt(otherId));
       if (p) {
         compareData.imageUrl = p.imageUrl;
