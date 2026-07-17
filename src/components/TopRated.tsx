@@ -50,8 +50,12 @@ export default function TopRated() {
   }, [allProducts]);
 
   return (
-    <section className="categories-section" style={{ background: 'linear-gradient(135deg, #fefce8, #f8fafc)', paddingTop: '64px', paddingBottom: '64px', borderBottom: '1px solid #e2e8f0' }}>
-      <div className="container">
+    <section className="categories-section" style={{ position: 'relative', overflow: 'hidden', backgroundColor: 'var(--background)', paddingTop: '64px', paddingBottom: '64px', borderBottom: '1px solid #e2e8f0' }}>
+      {/* Background blobs to match Hero */}
+      <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0 }}></div>
+      <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, var(--secondary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0 }}></div>
+      
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" style={{ marginBottom: '40px' }}>
           <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', color: '#b45309', fontSize: '2.5rem' }}>
             <Award size={36} color="#f59e0b" fill="#f59e0b" /> Sản phẩm được đánh giá cao
