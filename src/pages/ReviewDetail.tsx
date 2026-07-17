@@ -94,7 +94,6 @@ export default function ReviewDetail() {
         className="detail-banner" 
         style={{ 
           backgroundColor: data.imageColor,
-          backgroundImage: data.imageUrl ? `url(${data.imageUrl})` : 'none',
         }}
       >
         <div className="container banner-content">
