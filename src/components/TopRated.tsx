@@ -53,8 +53,8 @@ export default function TopRated() {
   return (
     <section className="categories-section" style={{ position: 'relative', backgroundColor: 'transparent', paddingTop: '64px', paddingBottom: '64px' }}>
       {/* Background blobs to match Hero */}
-      <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0 }}></div>
-      <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, var(--secondary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0 }}></div>
+      <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, var(--primary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }}></div>
+      <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, var(--secondary-light) 0%, transparent 70%)', opacity: 0.4, borderRadius: '50%', zIndex: 0, pointerEvents: 'none' }}></div>
       
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="section-header" style={{ marginBottom: '40px' }}>
