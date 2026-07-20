@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import Home from './pages/Home';
 import Diapers from './pages/Diapers';
 import Milk from './pages/Milk';
@@ -42,6 +43,7 @@ function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollToTopButton />
     </>
   );
 }
