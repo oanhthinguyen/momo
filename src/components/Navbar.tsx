@@ -85,6 +85,7 @@ export default function Navbar() {
           <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`}>{t('nav_milk')}</Link>
           <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`}>{t('nav_toys')}</Link>
           <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`}>{t('nav_parenting')}</Link>
+          <Link to="/community" className={`nav-link ${location.pathname.startsWith('/community') ? 'active' : ''}`}>{t('nav_community')}</Link>
         </nav>
 
         <div className="nav-actions">
@@ -179,6 +180,7 @@ export default function Navbar() {
             <Link to="/milk" className={`nav-link ${location.pathname === '/milk' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_milk')}</Link>
             <Link to="/toys" className={`nav-link ${location.pathname === '/toys' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_toys')}</Link>
             <Link to="/parenting" className={`nav-link ${location.pathname === '/parenting' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_parenting')}</Link>
+            <Link to="/community" className={`nav-link ${location.pathname.startsWith('/community') ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>{t('nav_community')}</Link>
             
             {user ? (
               <>

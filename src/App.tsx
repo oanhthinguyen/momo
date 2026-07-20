@@ -22,6 +22,8 @@ import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Admin from './pages/Admin';
 import AllReviews from './pages/AllReviews';
+import Community from './pages/Community';
+import TopicDetail from './pages/TopicDetail';
 import './App.css';
 
 function ScrollToTop() {
@@ -70,7 +72,9 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/profile/edit", element: <EditProfile /> },
       { path: "/admin", element: <Admin /> },
-      { path: "/reviews", element: <AllReviews /> }
+      { path: "/reviews", element: <AllReviews /> },
+      { path: "/community", element: <Community /> },
+      { path: "/community/:id", element: <TopicDetail /> }
     ]
   }
 ]);

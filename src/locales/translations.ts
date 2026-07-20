@@ -178,7 +178,24 @@ export const translations = {
     ty_11_title: 'Bộ xếp hình Lego Duplo cơ bản',
     ty_11_sum: 'Kích thước lớn an toàn không sợ bé nuốt, rèn luyện tư duy không gian và sự khéo léo.',
     ty_12_title: 'Sách vải tương tác Montessori',
-    ty_12_sum: 'Không lo bị rách, dễ dàng giặt sạch, chứa đựng nhiều kỹ năng mềm giúp bé khám phá thế giới.'
+    ty_12_sum: 'Không lo bị rách, dễ dàng giặt sạch, chứa đựng nhiều kỹ năng mềm giúp bé khám phá thế giới.',
+    
+    // Community
+    nav_community: 'Cộng đồng',
+    community_title: 'Cộng đồng Thảo luận',
+    community_subtitle: 'Cùng chia sẻ kinh nghiệm, đặt câu hỏi và giúp đỡ nhau trên hành trình làm mẹ',
+    create_topic: 'Tạo chủ đề mới',
+    topic_title_label: 'Tiêu đề',
+    topic_title_placeholder: 'Ví dụ: Cần tư vấn chọn sữa cho bé 6 tháng...',
+    topic_content_label: 'Nội dung',
+    topic_content_placeholder: 'Mô tả chi tiết câu hỏi hoặc chia sẻ của bạn...',
+    btn_post: 'Đăng bài',
+    btn_cancel: 'Hủy',
+    author_anonymous: 'Ẩn danh',
+    comments_count: 'bình luận',
+    write_comment: 'Viết bình luận...',
+    submit_comment: 'Gửi',
+    back: 'Quay lại'
   },
   en: {
     nav_diapers: 'Diapers',
@@ -359,7 +376,24 @@ export const translations = {
     ty_11_title: 'Lego Duplo Basic Set',
     ty_11_sum: 'Large safe pieces prevent choking, develops spatial thinking and hand dexterity.',
     ty_12_title: 'Montessori Cloth Book',
-    ty_12_sum: 'Tear-proof and washable, packed with interactive activities for early world exploration.'
+    ty_12_sum: 'Tear-proof and washable, packed with interactive activities for early world exploration.',
+
+    // Community
+    nav_community: 'Community',
+    community_title: 'Discussion Community',
+    community_subtitle: 'Share experiences, ask questions, and help each other on the parenting journey',
+    create_topic: 'Create New Topic',
+    topic_title_label: 'Title',
+    topic_title_placeholder: 'E.g., Need advice on formula for 6-month-old...',
+    topic_content_label: 'Content',
+    topic_content_placeholder: 'Detail your question or sharing...',
+    btn_post: 'Post',
+    btn_cancel: 'Cancel',
+    author_anonymous: 'Anonymous',
+    comments_count: 'comments',
+    write_comment: 'Write a comment...',
+    submit_comment: 'Submit',
+    back: 'Back'
   }
 };
 
