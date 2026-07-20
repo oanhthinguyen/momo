@@ -5,6 +5,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../components/SEO';
 import { mockTopics } from './Community';
 import type { Topic } from './Community';
+import { db, isFirebaseConfigured } from '../config/firebase';
+import { doc, collection, onSnapshot, addDoc, query, orderBy, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
 import './TopicDetail.css';
 
 interface Comment {
@@ -22,57 +24,120 @@ export default function TopicDetail() {
   const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
-    // Find topic from localStorage or mock data
-    const savedTopics: Topic[] = JSON.parse(localStorage.getItem('momo_topics') || '[]');
-    const allTopics = [...savedTopics, ...mockTopics];
-    const found = allTopics.find(t => t.id === id);
-    if (found) {
-      setTopic(found);
-    }
-
-    // Load comments
-    const savedComments: Comment[] = JSON.parse(localStorage.getItem(`momo_comments_${id}`) || '[]');
+    if (!id) return;
     
-    // Add mock comments if empty and it's a mock topic
-    if (savedComments.length === 0 && id === 't1') {
-      const initialComments = [
-        {
-          id: 'c1',
-          author: 'Mẹ Bơ',
-          content: 'Bé nhà mình cũng từng bị hăm khi dùng Bobby. Chuyển sang Merries thì đỡ hẳn nhưng hơi đau ví. Mẹ thử dùng Huggies Platinum xem sao nhé, giá mềm hơn Merries chút mà cực mềm.',
-          createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString()
+    if (isFirebaseConfigured && db) {
+      // Real-time listener for the topic
+      const topicRef = doc(db, 'topics', id);
+      const unsubscribeTopic = onSnapshot(topicRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setTopic({
+            id: docSnap.id,
+            title: data.title,
+            content: data.content,
+            author: data.author,
+            createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : new Date().toISOString(),
+            commentsCount: data.commentsCount || 0
+          });
+        } else {
+          // If not in Firebase, try mock data (for the initial seeded ones)
+          const foundMock = mockTopics.find(t => t.id === id);
+          if (foundMock) setTopic(foundMock);
         }
-      ];
-      setComments(initialComments);
-      localStorage.setItem(`momo_comments_${id}`, JSON.stringify(initialComments));
+      });
+
+      // Real-time listener for comments
+      const q = query(collection(db, `topics/${id}/comments`), orderBy('createdAt', 'asc'));
+      const unsubscribeComments = onSnapshot(q, (snapshot) => {
+        const fetchedComments: Comment[] = [];
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          fetchedComments.push({
+            id: docSnap.id,
+            author: data.author,
+            content: data.content,
+            createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : new Date().toISOString()
+          });
+        });
+        setComments(fetchedComments);
+      });
+
+      return () => {
+        unsubscribeTopic();
+        unsubscribeComments();
+      };
     } else {
-      setComments(savedComments);
+      // Fallback to localStorage logic
+      const savedTopics: Topic[] = JSON.parse(localStorage.getItem('momo_topics') || '[]');
+      const allTopics = [...savedTopics, ...mockTopics];
+      const found = allTopics.find(t => t.id === id);
+      if (found) {
+        setTopic(found);
+      }
+
+      // Load comments
+      const savedComments: Comment[] = JSON.parse(localStorage.getItem(`momo_comments_${id}`) || '[]');
+      if (savedComments.length === 0 && id === 't1') {
+        const initialComments = [
+          {
+            id: 'c1',
+            author: 'Mẹ Bơ',
+            content: 'Bé nhà mình cũng từng bị hăm khi dùng Bobby. Chuyển sang Merries thì đỡ hẳn nhưng hơi đau ví. Mẹ thử dùng Huggies Platinum xem sao nhé, giá mềm hơn Merries chút mà cực mềm.',
+            createdAt: new Date(Date.now() - 1000 * 60 * 30).toISOString()
+          }
+        ];
+        setComments(initialComments);
+        localStorage.setItem(`momo_comments_${id}`, JSON.stringify(initialComments));
+      } else {
+        setComments(savedComments);
+      }
     }
   }, [id]);
 
-  const handlePostComment = (e: React.FormEvent) => {
+  const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newComment.trim() || !topic) return;
+    if (!newComment.trim() || !topic || !id) return;
 
     const currentUser = localStorage.getItem('user');
-    
-    const comment: Comment = {
-      id: `c_${Date.now()}`,
-      author: currentUser ? currentUser.split('@')[0] : t('author_anonymous'),
-      content: newComment,
-      createdAt: new Date().toISOString()
-    };
+    const authorName = currentUser ? currentUser.split('@')[0] : t('author_anonymous');
 
-    const updatedComments = [...comments, comment];
-    setComments(updatedComments);
-    localStorage.setItem(`momo_comments_${id}`, JSON.stringify(updatedComments));
-    
-    // Update comments count on the topic (mock behavior, normally done on backend)
-    const savedTopics: Topic[] = JSON.parse(localStorage.getItem('momo_topics') || '[]');
-    const topicIndex = savedTopics.findIndex(t => t.id === id);
-    if (topicIndex !== -1) {
-      savedTopics[topicIndex].commentsCount = updatedComments.length;
-      localStorage.setItem('momo_topics', JSON.stringify(savedTopics));
+    if (isFirebaseConfigured && db) {
+      try {
+        await addDoc(collection(db, `topics/${id}/comments`), {
+          author: authorName,
+          content: newComment,
+          createdAt: serverTimestamp()
+        });
+        
+        // Update comments count on the topic document
+        const topicRef = doc(db, 'topics', id);
+        await updateDoc(topicRef, {
+          commentsCount: increment(1)
+        });
+      } catch (error) {
+        console.error("Error adding comment: ", error);
+        alert("Lỗi khi gửi bình luận. Vui lòng thử lại!");
+      }
+    } else {
+      // Fallback to localStorage
+      const comment: Comment = {
+        id: `c_${Date.now()}`,
+        author: authorName,
+        content: newComment,
+        createdAt: new Date().toISOString()
+      };
+
+      const updatedComments = [...comments, comment];
+      setComments(updatedComments);
+      localStorage.setItem(`momo_comments_${id}`, JSON.stringify(updatedComments));
+      
+      const savedTopics: Topic[] = JSON.parse(localStorage.getItem('momo_topics') || '[]');
+      const topicIndex = savedTopics.findIndex(t => t.id === id);
+      if (topicIndex !== -1) {
+        savedTopics[topicIndex].commentsCount = updatedComments.length;
+        localStorage.setItem('momo_topics', JSON.stringify(savedTopics));
+      }
     }
     
     setNewComment('');

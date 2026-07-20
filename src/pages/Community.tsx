@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { MessageSquare, Plus, User, Clock, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../components/SEO';
+import { db, isFirebaseConfigured } from '../config/firebase';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import './Community.css';
 
 export interface Topic {
@@ -51,31 +53,71 @@ export default function Community() {
   const [newContent, setNewContent] = useState('');
 
   useEffect(() => {
-    // Load topics from localStorage and mock data
-    const savedTopics = JSON.parse(localStorage.getItem('momo_topics') || '[]');
-    setTopics([...savedTopics, ...mockTopics]);
+    if (isFirebaseConfigured && db) {
+      // Real-time listener for topics from Firestore
+      const q = query(collection(db, 'topics'), orderBy('createdAt', 'desc'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const fetchedTopics: Topic[] = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          fetchedTopics.push({
+            id: doc.id,
+            title: data.title,
+            content: data.content,
+            author: data.author,
+            createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : new Date().toISOString(),
+            commentsCount: data.commentsCount || 0
+          });
+        });
+        setTopics([...fetchedTopics, ...mockTopics]);
+      });
+      return () => unsubscribe();
+    } else {
+      // Fallback to localStorage if Firebase is not configured
+      const savedTopics = JSON.parse(localStorage.getItem('momo_topics') || '[]');
+      setTopics([...savedTopics, ...mockTopics]);
+    }
   }, []);
 
-  const handleCreateTopic = (e: React.FormEvent) => {
+  const handleCreateTopic = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
 
     const currentUser = localStorage.getItem('user');
-    
-    const newTopic: Topic = {
-      id: `t_${Date.now()}`,
-      title: newTitle,
-      content: newContent,
-      author: currentUser ? currentUser.split('@')[0] : t('author_anonymous'),
-      createdAt: new Date().toISOString(),
-      commentsCount: 0
-    };
+    const authorName = currentUser ? currentUser.split('@')[0] : t('author_anonymous');
 
-    const savedTopics = JSON.parse(localStorage.getItem('momo_topics') || '[]');
-    const updatedTopics = [newTopic, ...savedTopics];
-    localStorage.setItem('momo_topics', JSON.stringify(updatedTopics));
-    
-    setTopics([newTopic, ...topics]);
+    if (isFirebaseConfigured && db) {
+      try {
+        await addDoc(collection(db, 'topics'), {
+          title: newTitle,
+          content: newContent,
+          author: authorName,
+          createdAt: serverTimestamp(),
+          commentsCount: 0
+        });
+        // onSnapshot will automatically update the list
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("Lỗi khi đăng bài. Vui lòng thử lại!");
+      }
+    } else {
+      // Fallback to localStorage
+      const newTopic: Topic = {
+        id: `t_${Date.now()}`,
+        title: newTitle,
+        content: newContent,
+        author: authorName,
+        createdAt: new Date().toISOString(),
+        commentsCount: 0
+      };
+
+      const savedTopics = JSON.parse(localStorage.getItem('momo_topics') || '[]');
+      const updatedTopics = [newTopic, ...savedTopics];
+      localStorage.setItem('momo_topics', JSON.stringify(updatedTopics));
+      
+      setTopics([newTopic, ...topics]);
+    }
+
     setNewTitle('');
     setNewContent('');
     setIsModalOpen(false);
