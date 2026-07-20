@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, XCircle, Star, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useMockData } from '../data/useMockData';
+import ReviewCard from '../components/ReviewCard';
 
 import './ReviewDetail.css';
 
@@ -112,6 +113,14 @@ export default function ReviewDetail() {
     );
   }
 
+  const idNumToMatch = parseInt(id || '0');
+  const currentProduct = allProducts.find(p => p.id === idNumToMatch);
+  
+  let relatedProducts: any[] = [];
+  if (currentProduct) {
+    relatedProducts = allProducts.filter(p => p.mainCategory === currentProduct.mainCategory && p.id !== idNumToMatch).slice(0, 8);
+  }
+
   return (
     <div className="page-transition review-detail-page">
       <SEO 
@@ -214,7 +223,7 @@ export default function ReviewDetail() {
         {/* Comparison Suggestion Section */}
         {data.ingredients && data.ingredients.length > 0 && compareData && (
           <div className="comparison-suggestion animate-fade-in" style={{ background: '#fff', padding: '32px', borderRadius: '16px', boxShadow: 'var(--shadow-md)', marginBottom: '32px' }}>
-            <h3 style={{ textAlign: 'center', color: '#16a34a', marginBottom: '32px', textTransform: 'uppercase', fontSize: '2.5rem', fontWeight: 900 }}>
+            <h3 style={{ textAlign: 'center', color: '#16a34a', marginBottom: '32px', textTransform: 'uppercase', fontSize: '1.5rem', fontWeight: 800 }}>
               GỢI Ý LỰA CHỌN SẢN PHẨM
             </h3>
             <div style={{ display: 'flex', flexDirection: window.innerWidth > 768 ? 'row' : 'column', gap: '30px', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -246,10 +255,8 @@ export default function ReviewDetail() {
                        </ul>
                      </div>
                      
-                     {/* Middle VS */}
-                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem', color: '#111', fontFamily: 'serif', marginTop: '50px' }}>
-                       &amp;
-                     </div>
+                     {/* Middle Line */}
+                     <div className="compare-divider"></div>
 
                      {/* Right Product */}
                      <div style={{ flex: 1, textAlign: 'center', maxWidth: '300px' }}>
@@ -292,6 +299,32 @@ export default function ReviewDetail() {
           </div>
         </div>
       </div>
+
+      {/* Related Reviews Section */}
+      {relatedProducts.length > 0 && (
+        <div className="related-reviews-wrapper animate-slide-up" style={{ marginTop: '80px', marginBottom: '40px' }}>
+          <div className="container">
+            <h3 style={{ fontSize: '2rem', color: 'var(--text)', marginBottom: '32px', textAlign: 'center', fontWeight: 800 }}>
+              {language === 'vi' ? 'Bài đánh giá liên quan' : 'Related Reviews'}
+            </h3>
+          </div>
+          <div className="related-slider">
+            {relatedProducts.map(product => (
+              <div key={product.id} className="related-slider-item">
+                <ReviewCard
+                  id={product.id}
+                  category={product.category}
+                  title={product.title}
+                  rating={product.rating}
+                  summary={product.summary}
+                  imageColor={product.imageColor}
+                  imageUrl={product.imageUrl}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
