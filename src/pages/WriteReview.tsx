@@ -127,7 +127,8 @@ export default function WriteReview() {
         category: selectedCategory,
         rating: rating,
         summary: summary,
-        review_date: new Date().toLocaleDateString('vi-VN')
+        review_date: new Date().toLocaleDateString('vi-VN'),
+        admin_url: window.location.origin + '/admin'
       };
 
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
