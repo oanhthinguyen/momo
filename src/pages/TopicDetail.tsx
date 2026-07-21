@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, User, Clock, MessageSquare, Send } from 'lucide-react';
+import { ArrowLeft, User, Clock, MessageSquare, Send, Edit2, Trash2, Check, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../components/SEO';
 import { mockTopics } from './Community';
 import type { Topic } from './Community';
 import { db, isFirebaseConfigured } from '../config/firebase';
-import { doc, collection, onSnapshot, addDoc, query, orderBy, serverTimestamp, updateDoc, increment } from 'firebase/firestore';
+import { doc, collection, onSnapshot, addDoc, query, orderBy, serverTimestamp, updateDoc, increment, deleteDoc } from 'firebase/firestore';
 import './TopicDetail.css';
 
 interface Comment {
@@ -42,6 +42,12 @@ export default function TopicDetail() {
   const [topic, setTopic] = useState<Topic | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [editContent, setEditContent] = useState('');
+  
+  const currentUserEmail = localStorage.getItem('user');
+  const loggedInAuthorName = currentUserEmail ? currentUserEmail.split('@')[0] : null;
+  const isAdmin = currentUserEmail === 'maruchan280519@gmail.com';
 
   useEffect(() => {
     if (!id) return;
@@ -163,6 +169,58 @@ export default function TopicDetail() {
     setNewComment('');
   };
 
+  const startEditComment = (comment: Comment) => {
+    setEditingCommentId(comment.id);
+    setEditContent(comment.content);
+  };
+
+  const handleSaveEdit = async (commentId: string) => {
+    if (!editContent.trim() || !id) return;
+    
+    if (isFirebaseConfigured && db) {
+      try {
+        const commentRef = doc(db, `topics/${id}/comments`, commentId);
+        await updateDoc(commentRef, { content: editContent });
+      } catch (error) {
+        console.error("Error updating comment: ", error);
+        alert("Lỗi khi cập nhật bình luận.");
+      }
+    } else {
+      const savedComments: Comment[] = JSON.parse(localStorage.getItem(`momo_comments_${id}`) || '[]');
+      const updated = savedComments.map(c => c.id === commentId ? { ...c, content: editContent } : c);
+      setComments(updated);
+      localStorage.setItem(`momo_comments_${id}`, JSON.stringify(updated));
+    }
+    setEditingCommentId(null);
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    if (!id || !window.confirm("Bạn có chắc chắn muốn xóa bình luận này không?")) return;
+
+    if (isFirebaseConfigured && db) {
+      try {
+        await deleteDoc(doc(db, `topics/${id}/comments`, commentId));
+        const topicRef = doc(db, 'topics', id);
+        await updateDoc(topicRef, { commentsCount: increment(-1) });
+      } catch (error) {
+        console.error("Error deleting comment: ", error);
+        alert("Lỗi khi xóa bình luận.");
+      }
+    } else {
+      const savedComments: Comment[] = JSON.parse(localStorage.getItem(`momo_comments_${id}`) || '[]');
+      const updated = savedComments.filter(c => c.id !== commentId);
+      setComments(updated);
+      localStorage.setItem(`momo_comments_${id}`, JSON.stringify(updated));
+
+      const savedTopics: Topic[] = JSON.parse(localStorage.getItem('momo_topics') || '[]');
+      const topicIndex = savedTopics.findIndex(t => t.id === id);
+      if (topicIndex !== -1) {
+        savedTopics[topicIndex].commentsCount = updated.length;
+        localStorage.setItem('momo_topics', JSON.stringify(savedTopics));
+      }
+    }
+  };
+
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     if (language === 'vi') {
@@ -212,7 +270,9 @@ export default function TopicDetail() {
           <h3>{comments.length} {t('comments_count')}</h3>
           
           <div className="comments-list">
-            {comments.map(comment => (
+            {comments.map(comment => {
+              const canEditDelete = isAdmin || (loggedInAuthorName && comment.author === loggedInAuthorName);
+              return (
               <div key={comment.id} className="comment-card">
                 <div className="comment-header">
                   <div 
@@ -225,12 +285,41 @@ export default function TopicDetail() {
                     <span className="comment-author">{comment.author}</span>
                     <span className="comment-date">{formatDate(comment.createdAt)}</span>
                   </div>
+                  {canEditDelete && (
+                    <div className="comment-actions">
+                      <button className="btn-icon" onClick={() => startEditComment(comment)}>
+                        <Edit2 size={16} />
+                      </button>
+                      <button className="btn-icon text-danger" onClick={() => handleDeleteComment(comment.id)}>
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="comment-body">
-                  <p>{comment.content}</p>
+                  {editingCommentId === comment.id ? (
+                    <div className="edit-comment-form">
+                      <textarea 
+                        className="edit-textarea"
+                        value={editContent} 
+                        onChange={(e) => setEditContent(e.target.value)} 
+                        rows={3}
+                      />
+                      <div className="edit-actions">
+                        <button className="btn btn-outline btn-sm" onClick={() => setEditingCommentId(null)}>
+                          <X size={16} /> Hủy
+                        </button>
+                        <button className="btn btn-primary btn-sm" onClick={() => handleSaveEdit(comment.id)}>
+                          <Check size={16} /> Lưu
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p>{comment.content}</p>
+                  )}
                 </div>
               </div>
-            ))}
+            )})}
           </div>
 
           <div className="comment-form-box glass">
