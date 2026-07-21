@@ -16,6 +16,26 @@ interface Comment {
   createdAt: string;
 }
 
+const avatarColors = [
+  '#ff8ca3', // primary
+  '#6cb0c7', // secondary
+  '#fbc668', // accent
+  '#a390e4', // purple
+  '#48bb78', // green
+  '#ed8936', // orange
+  '#f56565', // red
+  '#38b2ac', // teal
+];
+
+const getAvatarColor = (name: string) => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % avatarColors.length;
+  return avatarColors[index];
+};
+
 export default function TopicDetail() {
   const { id } = useParams<{ id: string }>();
   const { t, language } = useLanguage();
@@ -195,7 +215,10 @@ export default function TopicDetail() {
             {comments.map(comment => (
               <div key={comment.id} className="comment-card">
                 <div className="comment-header">
-                  <div className="comment-avatar">
+                  <div 
+                    className="comment-avatar"
+                    style={{ backgroundColor: getAvatarColor(comment.author) }}
+                  >
                     {comment.author.substring(0, 1).toUpperCase()}
                   </div>
                   <div className="comment-meta">
