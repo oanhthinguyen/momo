@@ -89,7 +89,8 @@
 
 .topic-meta {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
   font-size: 0.85rem;
   color: var(--text-light);
 }
@@ -98,6 +99,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .topic-stats {
@@ -108,10 +110,10 @@
 
 .stat-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   color: var(--text-light);
-  gap: 4px;
+  gap: 8px;
 }
 
 .stat-item span {
@@ -152,6 +154,8 @@
   width: 100%;
   max-width: 600px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-content h2 {

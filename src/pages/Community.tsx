@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { MessageSquare, Plus, User, Clock, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -51,6 +52,17 @@ export default function Community() {
   // New topic state
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
 
   useEffect(() => {
     if (isFirebaseConfigured && db) {
@@ -172,7 +184,7 @@ export default function Community() {
         </div>
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && createPortal(
         <div className="modal-overlay" onClick={(e) => {
           if ((e.target as HTMLElement).className === 'modal-overlay') setIsModalOpen(false);
         }}>
@@ -209,7 +221,8 @@ export default function Community() {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
